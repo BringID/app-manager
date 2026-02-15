@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/apps", label: "My Apps" },
   { href: "/apps/new", label: "Register App" },
   { href: "/scores", label: "Score Explorer" },
+  { href: "/demo", label: "Demo" },
 ];
 
 export function Header() {
