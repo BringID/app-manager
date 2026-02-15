@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { Suspense, useState, useRef, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
@@ -15,6 +15,14 @@ const BringIDModal = dynamic(
 );
 
 export default function DemoPage() {
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-zinc-400">Loading...</div>}>
+      <DemoPageContent />
+    </Suspense>
+  );
+}
+
+function DemoPageContent() {
   const { address } = useAccount();
   const chainId = useChainId();
   const { signMessageAsync } = useSignMessage();
