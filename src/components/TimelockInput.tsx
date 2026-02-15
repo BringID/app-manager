@@ -2,6 +2,16 @@
 
 import { formatTimelock } from "@/lib/utils/formatTimelock";
 
+const PRESETS = [
+  { label: "1 day", seconds: 86400 },
+  { label: "1 week", seconds: 604800 },
+  { label: "1 month", seconds: 2592000 },
+  { label: "3 months", seconds: 7776000 },
+  { label: "6 months", seconds: 15552000 },
+  { label: "1 year", seconds: 31536000 },
+  { label: "Disabled", seconds: 0 },
+];
+
 type TimelockInputProps = {
   value: string;
   onChange: (value: string) => void;
@@ -20,6 +30,22 @@ export function TimelockInput({
       <label className="mb-1 block text-sm font-medium text-zinc-300">
         {label}
       </label>
+      <div className="mb-2 flex flex-wrap gap-2">
+        {PRESETS.map((preset) => (
+          <button
+            key={preset.label}
+            type="button"
+            onClick={() => onChange(String(preset.seconds))}
+            className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+              numValue === preset.seconds
+                ? "bg-blue-600 text-white"
+                : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+            }`}
+          >
+            {preset.label}
+          </button>
+        ))}
+      </div>
       <div className="flex items-center gap-3">
         <input
           type="number"
@@ -33,11 +59,6 @@ export function TimelockInput({
           {formatTimelock(numValue)}
         </span>
       </div>
-      {numValue === 0 && (
-        <p className="mt-1 text-xs text-zinc-500">
-          0 = recovery disabled for this app
-        </p>
-      )}
     </div>
   );
 }

@@ -88,8 +88,9 @@ export const credentialRegistryAbi = [
     name: "credentialGroups",
     inputs: [{ name: "credentialGroupId", type: "uint256" }],
     outputs: [
-      { name: "semaphoreGroupId", type: "uint256" },
       { name: "status", type: "uint8" },
+      { name: "validityDuration", type: "uint256" },
+      { name: "familyId", type: "uint256" },
     ],
     stateMutability: "view",
   },

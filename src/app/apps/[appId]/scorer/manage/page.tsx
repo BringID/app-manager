@@ -106,11 +106,12 @@ export default function ManageScorerPage() {
   }
 
   const rows = (groupIds ?? []).map((id, i) => {
-    const detail = groupDetails?.[i]?.result;
+    const detail = groupDetails?.[i]?.result as [number, bigint, bigint] | undefined;
     return {
       groupId: id,
-      semaphoreGroupId: detail ? (detail as [bigint, number])[0] : 0n,
-      status: detail ? (detail as [bigint, number])[1] : 0,
+      status: detail ? detail[0] : 0,
+      validityDuration: detail ? detail[1] : 0n,
+      familyId: detail ? detail[2] : 0n,
       defaultScore: defaultScoreMap.get(id.toString()) ?? 0n,
       customScore: customScoreMap.get(id.toString()) ?? 0n,
     };
