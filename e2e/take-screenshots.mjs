@@ -94,8 +94,11 @@ const iframe = page.frameLocator("iframe").first();
 const createKeyBtn = iframe.locator("text=Create BringID key");
 if (await createKeyBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
   await createKeyBtn.click();
-  await page.waitForTimeout(10000); // wait for key creation + verification list
+  await page.waitForTimeout(15000); // wait for key creation + verification list
 }
+
+// Wait for credential list to load in the widget
+await page.waitForTimeout(8000);
 
 await shot("08-demo-page", "Demo page with BringID verification modal");
 
