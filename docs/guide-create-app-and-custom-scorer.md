@@ -2,6 +2,8 @@
 
 This guide walks through registering a new app on the BringID CredentialRegistry and deploying a custom scorer with personalized credential group scores.
 
+> **Video walkthrough:** See the full UI flow in action — [walkthrough.webm](../e2e/videos/walkthrough.webm)
+
 ## Prerequisites
 
 - A wallet (MetaMask, Coinbase Wallet, etc.) connected to **Base** (mainnet) or **Base Sepolia** (testnet)
