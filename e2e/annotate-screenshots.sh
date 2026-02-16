@@ -64,10 +64,10 @@ echo "06 done"
 cp "$DIR/07-score-explorer.png" "$OUT/07-score-explorer.png"
 echo "07 copied"
 
-# 08 - Demo page: "Get Score" button
-magick "$DIR/08-demo-page.png" \
-  $BOX_THICK -draw "roundrectangle 181,555 286,599 10,10" \
-  $LABEL -annotate +296+585 'Click "Get Score"' \
+# 08 - Demo page: "Verify Humanity" button
+magick "$OUT/08-demo-page.png" \
+  $BOX_THICK -draw "roundrectangle 181,477 327,521 10,10" \
+  $LABEL -annotate +337+507 'Click "Verify Humanity"' \
   "$OUT/08-demo-page.png"
 echo "08 done"
 

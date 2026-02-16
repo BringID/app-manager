@@ -39,14 +39,6 @@ function DemoPageContent() {
   // SDK ref
   const sdkRef = useRef<BringID | null>(null);
 
-  // getAddressScore state
-  const [scoreAddress, setScoreAddress] = useState("");
-  const [scoreResult, setScoreResult] = useState<{
-    score: number;
-  } | null>(null);
-  const [scoreLoading, setScoreLoading] = useState(false);
-  const [scoreError, setScoreError] = useState("");
-
   // verifyHumanity state
   const [humanityResult, setHumanityResult] = useState<{
     points: number;
@@ -87,21 +79,12 @@ function DemoPageContent() {
 
   // Reset results when appId changes
   useEffect(() => {
-    setScoreResult(null);
-    setScoreError("");
     setHumanityResult(null);
     setHumanityError("");
     setProofsResult(null);
     setProofsError("");
     setShowProofsJson(false);
   }, [appId]);
-
-  // Default score address to connected wallet
-  useEffect(() => {
-    if (address && !scoreAddress) {
-      setScoreAddress(address);
-    }
-  }, [address, scoreAddress]);
 
   const generateSignature = useCallback(
     async (msg: string) => {
@@ -111,21 +94,6 @@ function DemoPageContent() {
   );
 
   // --- Handlers ---
-
-  async function handleGetScore() {
-    if (!sdkRef.current || !scoreAddress) return;
-    setScoreLoading(true);
-    setScoreError("");
-    setScoreResult(null);
-    try {
-      const result = await sdkRef.current.getAddressScore(scoreAddress);
-      setScoreResult({ score: result.score });
-    } catch (err) {
-      setScoreError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setScoreLoading(false);
-    }
-  }
 
   async function handleVerifyHumanity() {
     if (!sdkRef.current) return;
@@ -218,43 +186,6 @@ function DemoPageContent() {
           highlightColor="#3b82f6"
         />
       )}
-
-      {/* getAddressScore */}
-      <div className="mb-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-        <h2 className="mb-4 text-lg font-semibold">getAddressScore</h2>
-
-        <div className="mb-4">
-          <label className="mb-1 block text-sm text-zinc-400">Address</label>
-          <input
-            type="text"
-            placeholder="0x..."
-            value={scoreAddress}
-            onChange={(e) => setScoreAddress(e.target.value)}
-            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
-          />
-        </div>
-
-        <button
-          onClick={handleGetScore}
-          disabled={!appId || !scoreAddress || scoreLoading}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {scoreLoading ? "Loading..." : "Get Score"}
-        </button>
-
-        {scoreResult && (
-          <div className="mt-4 rounded-md bg-zinc-800 p-4">
-            <p className="text-sm text-zinc-400">
-              Score: <span className="text-lg font-bold text-white">{scoreResult.score}</span>
-              <span className="text-zinc-500"> / 100</span>
-            </p>
-          </div>
-        )}
-
-        {scoreError && (
-          <p className="mt-4 text-sm text-red-400">{scoreError}</p>
-        )}
-      </div>
 
       {/* verifyHumanity */}
       <div className="mb-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">

@@ -184,7 +184,6 @@ After saving scores, click **Check Integration** at the bottom of the Manage Sco
 
 The Demo page lets you test:
 
-- **getAddressScore** — Query the total score for any Ethereum address under your app's scoring configuration
 - **verifyHumanity** — Start the BringID humanity verification flow (opens a modal)
 - **verifyProofs** — Verify on-chain proofs and see the score breakdown by credential group
 
