@@ -317,21 +317,20 @@ export default function AppDetailPage() {
             </div>
 
             <div className="border-t border-zinc-800 pt-4">
-              <Link
-                href={`/apps/${appId.toString()}/scorer/deploy`}
-                className="text-sm text-blue-400 hover:text-blue-300"
-              >
-                Deploy a new custom scorer via ScorerFactory →
-              </Link>
-              {!isDefaultScorer && (
-                <div className="mt-2">
-                  <Link
-                    href={`/apps/${appId.toString()}/scorer/manage`}
-                    className="text-sm text-blue-400 hover:text-blue-300"
-                  >
-                    Manage scores on current scorer →
-                  </Link>
-                </div>
+              {isDefaultScorer ? (
+                <Link
+                  href={`/apps/${appId.toString()}/scorer/deploy`}
+                  className="text-sm text-blue-400 hover:text-blue-300"
+                >
+                  Deploy a new custom scorer via ScorerFactory →
+                </Link>
+              ) : (
+                <Link
+                  href={`/apps/${appId.toString()}/scorer/manage`}
+                  className="text-sm text-blue-400 hover:text-blue-300"
+                >
+                  Manage scores on current scorer →
+                </Link>
               )}
             </div>
           </div>
