@@ -85,7 +85,7 @@ The App Settings page (`/apps/{appId}`) shows your app's full configuration:
 
 By default, new apps use the **BringID Default Scorer**. To customize scoring, you need to deploy and set a custom scorer.
 
-From the Scorer Configuration section, click the **"Deploy a new custom scorer via ScorerFactory"** link.
+From the Scorer Configuration section, click **"Set Custom Scores"**.
 
 ---
 

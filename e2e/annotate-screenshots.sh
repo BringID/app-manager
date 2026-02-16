@@ -35,10 +35,10 @@ magick "$DIR/03-register-app-timelock-selected.png" \
   "$OUT/03-register-app-timelock-selected.png"
 echo "03 done"
 
-# 04 - App Settings: "Deploy a new custom scorer" link
+# 04 - App Settings: "Set Custom Scores" button
 magick "$OUT/04-app-settings.png" \
-  $BOX_THICK -draw "roundrectangle 405,1292 729,1317 6,6" \
-  $LABEL_SM -annotate +735+1312 'Click to deploy a custom scorer' \
+  $BOX_THICK -draw "roundrectangle 405,1096 588,1140 10,10" \
+  $LABEL -annotate +598+1126 'Click "Set Custom Scores"' \
   "$OUT/04-app-settings.png"
 echo "04 done"
 
