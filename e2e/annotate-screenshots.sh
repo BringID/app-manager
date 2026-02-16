@@ -64,8 +64,8 @@ echo "07 done"
 
 # 08 - Demo page: BringID modal with custom scores
 magick "$OUT/08-demo-page.png" \
-  $BOX_THICK -draw "roundrectangle 525,253 865,312 10,10" \
-  $LABEL_SM -annotate +525+340 'Farcaster: 100-200 pts (custom scores)' \
+  $BOX_THICK -draw "roundrectangle 522,248 868,318 10,10" \
+  $LABEL_SM -annotate +522+345 'Farcaster: 100-200 pts (custom scores)' \
   "$OUT/08-demo-page.png"
 echo "08 done"
 
