@@ -51,7 +51,7 @@ await shot(
 // ── 4. App Settings page ──
 await page.goto(`${BASE_URL}/apps/${APP_ID}`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(3000); // wait for on-chain data to load
+await page.waitForTimeout(8000); // wait for on-chain data to load
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
