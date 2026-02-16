@@ -105,6 +105,7 @@ export default function AppDetailPage() {
 
   // --- Scorer Section ---
   const [customScorer, setCustomScorer] = useState("");
+  const [showAdvancedScorer, setShowAdvancedScorer] = useState(false);
   const [scorerValidation, setScorerValidation] = useState<string | null>(null);
   const scorerWrite = useWriteContract();
 
@@ -273,8 +274,21 @@ export default function AppDetailPage() {
           </p>
 
           <div className="space-y-4">
-            {!isDefaultScorer && (
-              <div>
+            {isDefaultScorer ? (
+              <Link
+                href={`/apps/${appId.toString()}/scorer/deploy`}
+                className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                Set Custom Scores →
+              </Link>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link
+                  href={`/apps/${appId.toString()}/scorer/manage`}
+                  className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                >
+                  Manage Scores →
+                </Link>
                 <TxButton
                   label="Use Default Scorer"
                   variant="secondary"
@@ -289,48 +303,35 @@ export default function AppDetailPage() {
             )}
 
             <div className="border-t border-zinc-800 pt-4">
-              <h3 className="mb-3 text-sm font-medium text-zinc-300">
-                Use Custom Scorer
-              </h3>
-              <div className="space-y-3">
-                <AddressInput
-                  value={customScorer}
-                  onChange={(v) => {
-                    setCustomScorer(v);
-                    setScorerValidation(null);
-                  }}
-                  label="Custom Scorer Address"
-                />
-                {scorerValidation && (
-                  <p className="text-sm text-red-400">{scorerValidation}</p>
-                )}
-                <TxButton
-                  label="Set Custom Scorer"
-                  onClick={handleUseCustomScorer}
-                  txHash={isDefaultScorer ? scorerWrite.data : undefined}
-                  isPending={scorerWrite.isPending}
-                  error={scorerWrite.error}
-                  disabled={!isAdmin || !customScorer}
-                  onSuccess={handleRefetch}
-                />
-              </div>
-            </div>
-
-            <div className="border-t border-zinc-800 pt-4">
-              {isDefaultScorer ? (
-                <Link
-                  href={`/apps/${appId.toString()}/scorer/deploy`}
-                  className="text-sm text-blue-400 hover:text-blue-300"
-                >
-                  Deploy a new custom scorer via ScorerFactory →
-                </Link>
-              ) : (
-                <Link
-                  href={`/apps/${appId.toString()}/scorer/manage`}
-                  className="text-sm text-blue-400 hover:text-blue-300"
-                >
-                  Manage scores on current scorer →
-                </Link>
+              <button
+                onClick={() => setShowAdvancedScorer(!showAdvancedScorer)}
+                className="text-sm text-zinc-500 hover:text-zinc-300"
+              >
+                Use a custom scoring contract. (Advanced) {showAdvancedScorer ? "▲" : "▼"}
+              </button>
+              {showAdvancedScorer && (
+                <div className="mt-3 space-y-3">
+                  <AddressInput
+                    value={customScorer}
+                    onChange={(v) => {
+                      setCustomScorer(v);
+                      setScorerValidation(null);
+                    }}
+                    label="Custom Scorer Address"
+                  />
+                  {scorerValidation && (
+                    <p className="text-sm text-red-400">{scorerValidation}</p>
+                  )}
+                  <TxButton
+                    label="Set Custom Scorer"
+                    onClick={handleUseCustomScorer}
+                    txHash={isDefaultScorer ? scorerWrite.data : undefined}
+                    isPending={scorerWrite.isPending}
+                    error={scorerWrite.error}
+                    disabled={!isAdmin || !customScorer}
+                    onSuccess={handleRefetch}
+                  />
+                </div>
               )}
             </div>
           </div>
