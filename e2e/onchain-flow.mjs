@@ -12,8 +12,11 @@ import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 import { writeFileSync } from "fs";
 
-const PRIVATE_KEY =
-  "0xREMOVED_PRIVATE_KEY";
+const PRIVATE_KEY = process.env.E2E_PRIVATE_KEY;
+if (!PRIVATE_KEY) {
+  console.error("ERROR: Set E2E_PRIVATE_KEY in .env.local");
+  process.exit(1);
+}
 
 const CREDENTIAL_REGISTRY = "0x4CeA320D9b08A3a32cfD55360E0fc2137542478d";
 const SCORER_FACTORY = "0x7cE2d6AdA1a9ba7B03b1F6d0C84EC01c3005cCa9";
