@@ -2,7 +2,7 @@
 
 This guide walks through registering a new app on the BringID CredentialRegistry and deploying a custom scorer with personalized credential group scores.
 
-> **Video walkthrough:** See the full UI flow in action — [walkthrough.webm](../e2e/videos/walkthrough.webm)
+> **Video walkthrough:** See the full UI flow in action — [walkthrough.mp4](../e2e/videos/walkthrough.mp4)
 
 ## Prerequisites
 
