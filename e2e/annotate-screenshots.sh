@@ -9,8 +9,8 @@ mkdir -p "$OUT"
 
 BOX="-fill none -stroke red -strokewidth 3"
 BOX_THICK="-fill none -stroke red -strokewidth 4"
-LABEL="-fill red -font Helvetica-Bold -pointsize 20"
-LABEL_SM="-fill red -font Helvetica-Bold -pointsize 16"
+LABEL="-stroke none -fill #c05050 -font Arial -pointsize 20"
+LABEL_SM="-stroke none -fill #c05050 -font Arial -pointsize 16"
 
 # 01 - My Apps: "Connect Wallet" button
 magick "$DIR/01-my-apps-disconnected.png" \
@@ -49,7 +49,7 @@ magick "$DIR/06-manage-scores.png" \
   $BOX -draw "roundrectangle 944,366 1048,404 6,6" \
   $LABEL_SM -annotate +1058+290 "1. Enter custom scores" \
   $BOX_THICK -draw "roundrectangle 268,1043 412,1087 10,10" \
-  $LABEL_SM -annotate +422+1073 '2. Click "Save"' \
+  $LABEL_SM -annotate +268+1035 '2. Click "Save"' \
   "$OUT/06-manage-scores.png"
 echo "06 done"
 
