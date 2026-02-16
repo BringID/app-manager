@@ -37,6 +37,24 @@ async function shot(name, description) {
   console.log(`📸 ${name}: ${description}`);
 }
 
+/** Wait for on-chain content to appear, retrying with page reload if needed. */
+async function waitForContent(locator, { retries = 3, timeout = 45000 } = {}) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      await locator.waitFor({ timeout });
+      return;
+    } catch {
+      if (i < retries - 1) {
+        console.log(`  ↻ Retrying (on-chain data not loaded yet)...`);
+        await page.reload();
+        await page.waitForLoadState("networkidle");
+      } else {
+        throw new Error(`Content not found after ${retries} attempts`);
+      }
+    }
+  }
+}
+
 // ── 1. My Apps page (disconnected) ──
 await page.goto(`${BASE_URL}/apps`);
 await page.waitForLoadState("networkidle");
@@ -57,7 +75,7 @@ await shot(
 // ── 4. App Settings page (App #1 — default scorer, shows "Set Custom Scores") ──
 await page.goto(`${BASE_URL}/apps/1`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(15000); // wait for on-chain data to load
+await waitForContent(page.locator("text=/Active|Suspended/").first());
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
@@ -69,13 +87,13 @@ await shot("05-deploy-scorer", "Deploy Custom Scorer - 3-step wizard");
 // ── 6. Manage Scores page ──
 await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/manage`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(8000);
+await waitForContent(page.locator("text=Farcaster").first());
 await shot("06-manage-scores", "Manage Custom Scores page with score table");
 
 // ── 7. Score Explorer page ──
 await page.goto(`${BASE_URL}/scores`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(2000);
+await waitForContent(page.locator("text=Farcaster").first());
 await shot("07-score-explorer", "Score Explorer - all credential groups");
 
 // ── 8. Demo page (with wallet via ethers) ──
