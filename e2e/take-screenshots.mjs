@@ -63,7 +63,7 @@ await shot("05-deploy-scorer", "Deploy Custom Scorer - 3-step wizard");
 // ── 6. Manage Scores page ──
 await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/manage`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(3000);
+await page.waitForTimeout(8000);
 await shot("06-manage-scores", "Manage Custom Scores page with score table");
 
 // ── 7. Score Explorer page ──
