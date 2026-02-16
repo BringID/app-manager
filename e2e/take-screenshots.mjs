@@ -28,6 +28,7 @@ const context = await browser.newContext({
   colorScheme: "dark",
 });
 const page = await context.newPage();
+page.setDefaultNavigationTimeout(60000);
 
 async function shot(name, description) {
   await page.waitForTimeout(1500); // let animations settle

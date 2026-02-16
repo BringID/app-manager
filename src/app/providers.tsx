@@ -14,7 +14,7 @@ import { type ReactNode, useState } from "react";
 const config = getDefaultConfig({
   appName: "BringID App Manager",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? "",
-  chains: [base, baseSepolia],
+  chains: [baseSepolia, base],
   transports: {
     [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`),
     [baseSepolia.id]: http(`https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`),
