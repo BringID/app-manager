@@ -9,8 +9,8 @@ mkdir -p "$OUT"
 
 BOX="-fill none -stroke red -strokewidth 3"
 BOX_THICK="-fill none -stroke red -strokewidth 4"
-LABEL="-stroke none -fill #c05050 -font Arial -pointsize 20"
-LABEL_SM="-stroke none -fill #c05050 -font Arial -pointsize 16"
+LABEL="-stroke none -fill red -font Arial -pointsize 20"
+LABEL_SM="-stroke none -fill red -font Arial -pointsize 16"
 
 # 01 - My Apps: "Connect Wallet" button
 magick "$DIR/01-my-apps-disconnected.png" \
