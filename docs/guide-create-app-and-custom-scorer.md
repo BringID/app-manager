@@ -16,7 +16,7 @@ This guide walks through registering a new app on the BringID CredentialRegistry
 
 Navigate to the App Manager. You'll land on the **My Apps** page, which prompts you to connect your wallet.
 
-![My Apps - Disconnected](../e2e/screenshots/01-my-apps-disconnected.png)
+![My Apps - Disconnected](../e2e/screenshots/annotated/01-my-apps-disconnected.png)
 
 Click **Connect Wallet** in the top-right corner. Select your wallet provider from the modal (MetaMask, Coinbase Wallet, WalletConnect, etc.) and approve the connection.
 
@@ -28,7 +28,7 @@ Click **Connect Wallet** in the top-right corner. Select your wallet provider fr
 
 Click **Register App** in the navigation bar to open the registration form.
 
-![Register App Form](../e2e/screenshots/02-register-app-form.png)
+![Register App Form](../e2e/screenshots/annotated/02-register-app-form.png)
 
 ### Configure the Recovery Timelock
 
@@ -46,7 +46,7 @@ The **Recovery Timelock** determines how long admin recovery actions take. Choos
 
 Select a timelock value. For this example, we choose **1 day** (86,400 seconds):
 
-![Timelock Selected](../e2e/screenshots/03-register-app-timelock-selected.png)
+![Timelock Selected](../e2e/screenshots/annotated/03-register-app-timelock-selected.png)
 
 ### Submit the Transaction
 
@@ -91,7 +91,7 @@ From the Scorer Configuration section, click the **"Deploy a new custom scorer v
 
 The Deploy Custom Scorer page (`/apps/{appId}/scorer/deploy`) guides you through a **3-step wizard**:
 
-![Deploy Scorer Wizard](../e2e/screenshots/05-deploy-scorer.png)
+![Deploy Scorer Wizard](../e2e/screenshots/annotated/05-deploy-scorer.png)
 
 ### Step 4a: Deploy Scorer Contract
 
@@ -124,7 +124,7 @@ Click **Manage Scores** to configure your custom scores.
 
 The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credential groups in an editable table:
 
-![Manage Custom Scores](../e2e/screenshots/06-manage-scores.png)
+![Manage Custom Scores](../e2e/screenshots/annotated/06-manage-scores.png)
 
 ### Understanding the Score Table
 
@@ -178,7 +178,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 After saving scores, click **Check Integration** at the bottom of the Manage Scores page. This opens the **SDK Demo** page pre-configured with your app.
 
-![SDK Demo](../e2e/screenshots/08-demo-page.png)
+![SDK Demo](../e2e/screenshots/annotated/08-demo-page.png)
 
 The Demo page lets you test:
 
@@ -192,7 +192,7 @@ The Demo page lets you test:
 
 The **Score Explorer** page (`/scores`) provides a read-only view of all credential groups and their default scores from the BringID DefaultScorer:
 
-![Score Explorer](../e2e/screenshots/07-score-explorer.png)
+![Score Explorer](../e2e/screenshots/annotated/07-score-explorer.png)
 
 Use this as a reference when deciding how to set your custom scores.
 
