@@ -76,6 +76,8 @@ Click **Go to App Settings** to continue.
 
 The App Settings page (`/apps/{appId}`) shows your app's full configuration:
 
+![App Settings](../e2e/screenshots/annotated/04-app-settings.png)
+
 - **Status** — Active or Suspended, with a toggle button
 - **Recovery Timelock** — current value with an option to update
 - **Admin Transfer** — transfer admin rights to another address (irreversible)
