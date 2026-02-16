@@ -13,6 +13,11 @@ const results = JSON.parse(
 );
 const APP_ID = results.appId;
 
+// Read E2E private key from .env.local for demo page wallet
+const E2E_KEY = readFileSync(".env.local", "utf8")
+  .match(/E2E_PRIVATE_KEY=(.*)/)?.[1]
+  ?.trim();
+
 console.log(`Recording walkthrough for App #${APP_ID}...\n`);
 
 const browser = await chromium.launch({ headless: true });
@@ -113,18 +118,30 @@ for (let i = 0; i < 4; i++) {
 }
 await pause(1500);
 
-// ── Scene 7: Demo page ──
+// ── Scene 7: Demo page (with wallet via ethers) ──
 console.log("Scene 7: Demo page");
-await page.goto(`${BASE_URL}/demo?appId=${APP_ID}`);
+await page.goto(
+  `${BASE_URL}/demo/e2e?appId=${APP_ID}&key=${E2E_KEY}`
+);
 await page.waitForLoadState("networkidle");
-await pause(2000);
+await pause(3000);
 
-// Scroll to show all sections
-for (let i = 0; i < 3; i++) {
-  await page.mouse.wheel(0, 250);
-  await pause(600);
+// Click Verify Humanity to open BringID modal
+console.log("  - Opening BringID verification modal...");
+await page.click("text=Verify Humanity");
+await pause(3000);
+
+// If first time, create BringID key (triggers ethers signature)
+const iframe = page.frameLocator("iframe").first();
+const createKeyBtn = iframe.locator("text=Create BringID key");
+if (await createKeyBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+  console.log("  - Creating BringID key...");
+  await createKeyBtn.click();
+  await pause(10000);
 }
-await pause(2000);
+
+// Show the verification options in the modal
+await pause(3000);
 
 // ── Done ──
 console.log("\nClosing browser...");

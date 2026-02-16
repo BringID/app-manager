@@ -62,10 +62,10 @@ echo "06 done"
 # 07 - Score Explorer: reference only (no annotations)
 echo "07 done"
 
-# 08 - Demo page: "Verify Humanity" button
+# 08 - Demo page: BringID modal with custom scores
 magick "$OUT/08-demo-page.png" \
-  $BOX_THICK -draw "roundrectangle 181,477 327,521 10,10" \
-  $LABEL -annotate +337+507 'Click "Verify Humanity"' \
+  $BOX_THICK -draw "roundrectangle 525,253 865,312 10,10" \
+  $LABEL_SM -annotate +525+340 'Farcaster: 100-200 pts (custom scores)' \
   "$OUT/08-demo-page.png"
 echo "08 done"
 

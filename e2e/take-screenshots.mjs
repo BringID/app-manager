@@ -15,6 +15,11 @@ const results = JSON.parse(
 const APP_ID = results.appId;
 const SCORER_ADDRESS = results.scorerAddress;
 
+// Read E2E private key from .env.local for demo page wallet
+const E2E_KEY = readFileSync(".env.local", "utf8")
+  .match(/E2E_PRIVATE_KEY=(.*)/)?.[1]
+  ?.trim();
+
 console.log(`App ID: ${APP_ID}, Scorer: ${SCORER_ADDRESS}\n`);
 
 const browser = await chromium.launch({ headless: true });
@@ -48,10 +53,10 @@ await shot(
   "Register App with 1 day timelock selected"
 );
 
-// ── 4. App Settings page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID}`);
+// ── 4. App Settings page (App #1 — default scorer, shows "Set Custom Scores") ──
+await page.goto(`${BASE_URL}/apps/1`);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(8000); // wait for on-chain data to load
+await page.waitForTimeout(15000); // wait for on-chain data to load
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
@@ -72,11 +77,26 @@ await page.waitForLoadState("networkidle");
 await page.waitForTimeout(2000);
 await shot("07-score-explorer", "Score Explorer - all credential groups");
 
-// ── 8. Demo page ──
-await page.goto(`${BASE_URL}/demo?appId=${APP_ID}`);
+// ── 8. Demo page (with wallet via ethers) ──
+await page.goto(
+  `${BASE_URL}/demo/e2e?appId=${APP_ID}&key=${E2E_KEY}`
+);
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(2000);
-await shot("08-demo-page", "Demo page with SDK integration");
+await page.waitForTimeout(5000);
+
+// Click Verify Humanity to open modal
+await page.click("text=Verify Humanity");
+await page.waitForTimeout(3000);
+
+// If first time, need to create BringID key (triggers ethers signature)
+const iframe = page.frameLocator("iframe").first();
+const createKeyBtn = iframe.locator("text=Create BringID key");
+if (await createKeyBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+  await createKeyBtn.click();
+  await page.waitForTimeout(10000); // wait for key creation + verification list
+}
+
+await shot("08-demo-page", "Demo page with BringID verification modal");
 
 await browser.close();
 console.log("\n✓ All screenshots saved to e2e/screenshots/");
