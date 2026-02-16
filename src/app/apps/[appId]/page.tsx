@@ -197,68 +197,9 @@ export default function AppDetailPage() {
           </div>
         </section>
 
-        {/* Timelock Section */}
+        {/* Scoring Section */}
         <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Recovery Timelock</h2>
-          <p className="mb-4 text-sm text-zinc-400">
-            Current: <span className="text-white">{formatTimelock(Number(recoveryTimelock))}</span>
-            {recoveryTimelock > 0n && (
-              <span className="text-zinc-500"> ({recoveryTimelock.toString()}s)</span>
-            )}
-          </p>
-          <div className="space-y-3">
-            <TimelockInput
-              value={newTimelock}
-              onChange={setNewTimelock}
-              label="New Timelock (seconds)"
-            />
-            <TxButton
-              label="Update Timelock"
-              onClick={handleSetTimelock}
-              txHash={timelockWrite.data}
-              isPending={timelockWrite.isPending}
-              error={timelockWrite.error}
-              disabled={!isAdmin || !newTimelock}
-              onSuccess={handleRefetch}
-            />
-          </div>
-        </section>
-
-        {/* Admin Transfer Section */}
-        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Admin Transfer</h2>
-          <p className="mb-2 text-sm text-zinc-400">
-            Current admin:{" "}
-            <span className="font-mono text-zinc-300">
-              {admin as string}
-            </span>
-          </p>
-          <div className="mb-4 rounded-md border border-yellow-800 bg-yellow-950/30 p-3 text-xs text-yellow-400">
-            Warning: This is irreversible. You will lose admin access to this
-            app.
-          </div>
-          <div className="space-y-3">
-            <AddressInput
-              value={newAdmin}
-              onChange={setNewAdmin}
-              label="New Admin Address"
-            />
-            <TxButton
-              label="Transfer Admin"
-              variant="danger"
-              onClick={() => setShowAdminConfirm(true)}
-              txHash={adminWrite.data}
-              isPending={adminWrite.isPending}
-              error={adminWrite.error}
-              disabled={!isAdmin || !isAddress(newAdmin)}
-              onSuccess={() => router.push("/apps")}
-            />
-          </div>
-        </section>
-
-        {/* Scorer Section */}
-        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Scorer Configuration</h2>
+          <h2 className="mb-4 text-lg font-semibold">Scoring</h2>
           <p className="mb-4 text-sm text-zinc-400">
             Current scorer:{" "}
             <span className="font-mono text-zinc-300">
@@ -334,6 +275,69 @@ export default function AppDetailPage() {
                 </div>
               )}
             </div>
+          </div>
+        </section>
+
+        {/* Timelock Section */}
+        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
+          <h2 className="mb-4 text-lg font-semibold">Recovery Timelock</h2>
+          <p className="mb-4 text-sm text-zinc-400">
+            The recovery timelock is a delay period that protects your app from unauthorized admin changes.
+            If your admin key is compromised, this delay gives you time to intervene before changes take effect.
+          </p>
+          <p className="mb-4 text-sm text-zinc-400">
+            Current: <span className="text-white">{formatTimelock(Number(recoveryTimelock))}</span>
+            {recoveryTimelock > 0n && (
+              <span className="text-zinc-500"> ({recoveryTimelock.toString()}s)</span>
+            )}
+          </p>
+          <div className="space-y-3">
+            <TimelockInput
+              value={newTimelock}
+              onChange={setNewTimelock}
+              label="New Timelock (seconds)"
+            />
+            <TxButton
+              label="Update Timelock"
+              onClick={handleSetTimelock}
+              txHash={timelockWrite.data}
+              isPending={timelockWrite.isPending}
+              error={timelockWrite.error}
+              disabled={!isAdmin || !newTimelock}
+              onSuccess={handleRefetch}
+            />
+          </div>
+        </section>
+
+        {/* Admin Transfer Section */}
+        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
+          <h2 className="mb-4 text-lg font-semibold">Admin Transfer</h2>
+          <p className="mb-2 text-sm text-zinc-400">
+            Current admin:{" "}
+            <span className="font-mono text-zinc-300">
+              {admin as string}
+            </span>
+          </p>
+          <div className="mb-4 rounded-md border border-yellow-800 bg-yellow-950/30 p-3 text-xs text-yellow-400">
+            Warning: This is irreversible. You will lose admin access to this
+            app.
+          </div>
+          <div className="space-y-3">
+            <AddressInput
+              value={newAdmin}
+              onChange={setNewAdmin}
+              label="New Admin Address"
+            />
+            <TxButton
+              label="Transfer Admin"
+              variant="danger"
+              onClick={() => setShowAdminConfirm(true)}
+              txHash={adminWrite.data}
+              isPending={adminWrite.isPending}
+              error={adminWrite.error}
+              disabled={!isAdmin || !isAddress(newAdmin)}
+              onSuccess={() => router.push("/apps")}
+            />
           </div>
         </section>
       </div>
