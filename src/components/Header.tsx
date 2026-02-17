@@ -1,9 +1,84 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAccount, useChainId, useSwitchChain } from "wagmi";
+import { base, baseSepolia } from "wagmi/chains";
+
+const CHAINS = [
+  { id: base.id, name: "Base", color: "#3b82f6" },
+  { id: baseSepolia.id, name: "Base Sepolia", color: "#eab308" },
+];
+
+function NetworkSwitcher() {
+  const activeId = useChainId();
+  const { switchChain } = useSwitchChain();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const active = CHAINS.find((c) => c.id === activeId) ?? CHAINS[0];
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+      >
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: active.color }}
+        />
+        {active.name}
+        <svg className="h-3 w-3 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full z-50 mt-1 w-44 rounded-lg border border-zinc-700 bg-zinc-900 py-1 shadow-xl">
+          {CHAINS.map((chain) => (
+            <button
+              key={chain.id}
+              onClick={() => {
+                if (chain.id !== activeId) {
+                  switchChain({ chainId: chain.id });
+                }
+                setOpen(false);
+              }}
+              className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ${
+                chain.id === activeId
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+              }`}
+            >
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: chain.color }}
+              />
+              {chain.name}
+              {chain.id === activeId && (
+                <svg className="ml-auto h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const NAV_ITEMS = [
   { href: "/apps", label: "My Apps" },
@@ -15,8 +90,16 @@ const NAV_ITEMS = [
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { chainId, isConnected } = useAccount();
+  const isTestnet = isConnected && chainId === baseSepolia.id;
 
   return (
+    <>
+    {isTestnet && (
+      <div className="bg-yellow-500/10 border-b border-yellow-500/30 px-4 py-1.5 text-center text-xs font-medium text-yellow-400">
+        Testnet Mode — You are on Base Sepolia
+      </div>
+    )}
     <header className="border-b border-zinc-800 bg-zinc-950">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-8">
@@ -40,8 +123,9 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-3">
+          <NetworkSwitcher />
           <ConnectButton
-            chainStatus="icon"
+            chainStatus="none"
             showBalance={false}
             accountStatus="address"
           />
@@ -79,5 +163,6 @@ export function Header() {
         </nav>
       )}
     </header>
+    </>
   );
 }
