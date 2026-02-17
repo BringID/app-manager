@@ -12,13 +12,47 @@ const CHAINS = [
   { id: baseSepolia.id, name: "Base Sepolia", color: "#eab308" },
 ];
 
+const VALID_CHAIN_IDS = new Set(CHAINS.map((c) => c.id));
+
+function getChainIdParam(): number | null {
+  if (typeof window === "undefined") return null;
+  const param = new URLSearchParams(window.location.search).get("chainId");
+  if (!param) return null;
+  const id = Number(param);
+  return VALID_CHAIN_IDS.has(id) ? id : null;
+}
+
+/** Remove chainId from the URL without a page reload. */
+function clearChainIdParam() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("chainId");
+  window.history.replaceState({}, "", url.pathname + url.search);
+}
+
 function NetworkSwitcher() {
   const activeId = useChainId();
-  const { switchChain } = useSwitchChain();
+  const { chainId: walletChainId, isConnected } = useAccount();
+  const { switchChainAsync } = useSwitchChain();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const urlChainId = useRef(getChainIdParam());
 
   const active = CHAINS.find((c) => c.id === activeId) ?? CHAINS[0];
+
+  // Switch chain from ?chainId= URL param
+  useEffect(() => {
+    const target = urlChainId.current;
+    if (!target) return;
+    const mismatch =
+      activeId !== target ||
+      (isConnected && walletChainId !== target);
+    if (!mismatch) return;
+
+    const timer = setTimeout(() => {
+      switchChainAsync({ chainId: target }).catch(() => {});
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [activeId, walletChainId, isConnected, switchChainAsync]);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -52,7 +86,9 @@ function NetworkSwitcher() {
               key={chain.id}
               onClick={() => {
                 if (chain.id !== activeId) {
-                  switchChain({ chainId: chain.id });
+                  urlChainId.current = null;
+                  clearChainIdParam();
+                  switchChainAsync({ chainId: chain.id }).catch(() => {});
                 }
                 setOpen(false);
               }}
