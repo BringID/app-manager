@@ -90,8 +90,8 @@ const NAV_ITEMS = [
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { chainId, isConnected } = useAccount();
-  const isTestnet = isConnected && chainId === baseSepolia.id;
+  const activeChainId = useChainId();
+  const isTestnet = activeChainId === baseSepolia.id;
 
   return (
     <>
