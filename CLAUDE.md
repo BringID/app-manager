@@ -40,7 +40,7 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 ## Contracts (Base Mainnet & Base Sepolia)
 
 - CredentialRegistry: `0xbF9b2556e6Dd64D60E08E3669CeF2a4293e006db`
-- DefaultScorer: `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8c`
+- DefaultScorer: `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8C`
 - ScorerFactory: `0xAa03996D720C162Fdff246E1D3CEecc792986750`
 
 ## Environment Variables
