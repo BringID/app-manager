@@ -12,7 +12,7 @@ const CHAINS = [
   { id: baseSepolia.id, name: "Base Sepolia", color: "#eab308" },
 ];
 
-const VALID_CHAIN_IDS = new Set(CHAINS.map((c) => c.id));
+const VALID_CHAIN_IDS: Set<number> = new Set(CHAINS.map((c) => c.id));
 
 function getChainIdParam(): number | null {
   if (typeof window === "undefined") return null;

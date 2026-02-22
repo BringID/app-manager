@@ -1,17 +1,20 @@
-const REVERT_MESSAGES: Record<string, string> = {
-  "BID::not app admin": "You are not the admin of this app.",
-  "BID::app not active": "This app is currently suspended.",
-  "BID::app not suspended": "This app is already active.",
-  "BID::invalid scorer address": "Invalid scorer address.",
-  "BID::invalid admin address": "Invalid admin address.",
+const CUSTOM_ERROR_MESSAGES: Record<string, string> = {
+  NotAppAdmin: "You are not the admin of this app.",
+  AppNotActive: "This app is currently suspended.",
+  AppNotSuspended: "This app is already active.",
+  InvalidAdminAddress: "Invalid admin address (cannot be zero).",
+  NotPendingAdmin: "You are not the pending admin for this app.",
+  InvalidScorerContract:
+    "This address does not implement the IScorer interface.",
+  InvalidScorerAddress: "Invalid scorer address.",
 };
 
 export function getUserFriendlyError(error: unknown): string {
   const message =
     error instanceof Error ? error.message : String(error);
 
-  for (const [revert, friendly] of Object.entries(REVERT_MESSAGES)) {
-    if (message.includes(revert)) {
+  for (const [errorName, friendly] of Object.entries(CUSTOM_ERROR_MESSAGES)) {
+    if (message.includes(errorName)) {
       return friendly;
     }
   }

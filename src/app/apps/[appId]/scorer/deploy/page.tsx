@@ -16,6 +16,7 @@ import {
   SCORER_FACTORY_ADDRESS,
   CREDENTIAL_REGISTRY_ADDRESS,
 } from "@/lib/contracts";
+import { formatAppId } from "@/lib/utils/formatAppId";
 import { TxButton } from "@/components/TxButton";
 
 export default function DeployScorerPage() {
@@ -128,7 +129,7 @@ export default function DeployScorerPage() {
           href={`/apps/${appId.toString()}`}
           className="text-sm text-zinc-400 hover:text-white"
         >
-          ← Back to App #{appId.toString()}
+          ← Back to App {formatAppId(appId)}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">Deploy Custom Scorer</h1>
         <p className="mt-1 text-sm text-zinc-400">

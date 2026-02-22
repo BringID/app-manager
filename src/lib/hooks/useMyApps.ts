@@ -101,7 +101,7 @@ export function useMyApps() {
         }
 
         if (!cancelled) {
-          results.sort((a, b) => Number(a.appId - b.appId));
+          results.sort((a, b) => (a.appId < b.appId ? -1 : a.appId > b.appId ? 1 : 0));
           setApps(results);
         }
       } catch (err) {
