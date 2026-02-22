@@ -37,11 +37,11 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
   - If a wallet is connected on a different chain, it will be prompted to switch.
   - Example: `https://app-manager.bringid.com/apps?chainId=84532`
 
-## Contracts (Base Sepolia)
+## Contracts (Base Mainnet & Base Sepolia)
 
-- CredentialRegistry: `0xfd600B14Dc5A145ec9293Fd5768ae10Ccc1E91Fe`
-- DefaultScorer: `0x6a0b5ba649C7667A0C4Cd7FE8a83484AEE6C5345`
-- ScorerFactory: `0x05321FAAD6315a04d5024Ee5b175AB1C62a3fd44`
+- CredentialRegistry: `0xbF9b2556e6Dd64D60E08E3669CeF2a4293e006db`
+- DefaultScorer: `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8c`
+- ScorerFactory: `0xAa03996D720C162Fdff246E1D3CEecc792986750`
 
 ## Environment Variables
 

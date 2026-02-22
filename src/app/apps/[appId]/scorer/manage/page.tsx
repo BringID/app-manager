@@ -15,6 +15,7 @@ import {
   CREDENTIAL_REGISTRY_ADDRESS,
   DEFAULT_SCORER_ADDRESS,
 } from "@/lib/contracts";
+import { formatAppId } from "@/lib/utils/formatAppId";
 import { ScoreTable } from "@/components/ScoreTable";
 import { TxButton } from "@/components/TxButton";
 
@@ -143,7 +144,7 @@ export default function ManageScorerPage() {
           href={`/apps/${appId.toString()}`}
           className="text-sm text-zinc-400 hover:text-white"
         >
-          ← Back to App #{appId.toString()}
+          ← Back to App {formatAppId(appId)}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">Manage Custom Scores</h1>
         <p className="mt-1 text-sm text-zinc-400">

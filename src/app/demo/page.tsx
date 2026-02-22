@@ -4,15 +4,22 @@ import { Suspense, useState, useRef, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
+import { baseSepolia, base } from "wagmi/chains";
 import { BringID } from "bringid";
 import { ethers } from "ethers";
 import { useMyApps } from "@/lib/hooks/useMyApps";
+import { formatAppId } from "@/lib/utils/formatAppId";
 
 const BringIDModal = dynamic(
   () => import("bringid/react").then((m) => m.BringIDModal),
   { ssr: false },
 );
+
+// BringID's own app IDs (hash-based, per chain)
+const BRINGID_APP_IDS: Record<number, bigint> = {
+  [base.id]: 73594675973776425610572226910366728313584340544029116170588881424777663153321n,
+  [baseSepolia.id]: 111616409347612400399828768160239566106801356577601241664476007206550967737659n,
+};
 
 export default function DemoPage() {
   return (
@@ -31,9 +38,11 @@ function DemoPageContent() {
 
   const mode = chainId === baseSepolia.id ? "dev" : "production";
 
-  // App selection — default to query param or BringID's own app (ID 1)
+  const bringIdAppId = BRINGID_APP_IDS[chainId] ?? BRINGID_APP_IDS[base.id];
+
+  // App selection — default to query param or BringID's own app
   const [appId, setAppId] = useState(
-    searchParams.get("appId") || "1",
+    searchParams.get("appId") || bringIdAppId.toString(),
   );
 
   // SDK ref
@@ -151,13 +160,15 @@ function DemoPageContent() {
             onChange={(e) => setAppId(e.target.value)}
             className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
           >
-            <option value="1">App #1 (BringID)</option>
+            <option value={bringIdAppId.toString()}>
+              App {formatAppId(bringIdAppId)} (BringID)
+            </option>
             {appsLoading ? (
               <option disabled>Loading your apps...</option>
             ) : (
-              apps.filter((app) => app.appId !== 1n).map((app) => (
+              apps.filter((app) => app.appId !== bringIdAppId).map((app) => (
                 <option key={app.appId.toString()} value={app.appId.toString()}>
-                  App #{app.appId.toString()}
+                  App {formatAppId(app.appId)}
                 </option>
               ))
             )}
