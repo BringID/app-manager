@@ -58,11 +58,14 @@ Click **Register App**. Your wallet will prompt you to confirm the transaction. 
 
 ### Success
 
-Once confirmed, a success banner appears showing your new **App ID**:
+Once confirmed, a success banner appears showing your new **App ID** in hex format:
 
 > **App Registered!**
-> Your App ID is **3**
+> Your App ID is **0x945c...ea2f**
+> `0x945c6d5e8296c4a390c3c0135c7f6980feee025bd924cfb47eff70be2bb7ea2f`
 > Save this ID — you'll need it to manage your app.
+
+App IDs are 256-bit hashes displayed in `0x`-prefixed hex. Use the **Copy** button to copy the full hex ID.
 
 You'll see two options:
 - **Go to App Settings** — navigate to your app's management page
@@ -74,18 +77,17 @@ Click **Go to App Settings** to continue.
 
 ## Step 3: View App Settings
 
-The App Settings page (`/apps/{appId}`) shows your app's full configuration:
+The App Settings page (`/apps/{appId}`) shows your app's full configuration. The URL uses the full hex App ID (e.g. `/apps/0x945c6d...ea2f`).
 
 ![App Settings](../e2e/screenshots/annotated/04-app-settings.png)
 
 - **Status** — Active or Suspended, with a toggle button
+- **Scoring** — which scorer your app uses, with options to manage or change it
 - **Recovery Timelock** — current value with an option to update
-- **Admin Transfer** — transfer admin rights to another address (irreversible)
-- **Scorer Configuration** — which scorer your app uses
+- **Merkle Tree Duration** — how long Merkle trees remain valid (defaults to registry setting)
+- **Admin Transfer** — transfer admin rights to another address (two-step: initiate + accept)
 
-By default, new apps use the **BringID Default Scorer**. To customize scoring, you need to deploy and set a custom scorer.
-
-From the Scorer Configuration section, click **"Set Custom Scores"**.
+By default, new apps use the **BringID Default Scorer**. To customize scoring, click **"Set Custom Scores"** in the Scoring section. If a custom scorer is already set, click **"Manage Scores"** instead.
 
 ---
 
@@ -215,6 +217,6 @@ Use this as a reference when deciding how to set your custom scores.
 
 | Contract | Address |
 |----------|---------|
-| CredentialRegistry | `0xfd600B14Dc5A145ec9293Fd5768ae10Ccc1E91Fe` |
-| Default Scorer | `0x6a0b5ba649C7667A0C4Cd7FE8a83484AEE6C5345` |
-| Scorer Factory | `0x05321FAAD6315a04d5024Ee5b175AB1C62a3fd44` |
+| CredentialRegistry | `0xbF9b2556e6Dd64D60E08E3669CeF2a4293e006db` |
+| Default Scorer | `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8C` |
+| Scorer Factory | `0xAa03996D720C162Fdff246E1D3CEecc792986750` |

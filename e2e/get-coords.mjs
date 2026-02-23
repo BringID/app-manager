@@ -8,7 +8,7 @@ const BASE_URL = "http://localhost:3000";
 const results = JSON.parse(
   readFileSync(new URL("./flow-results.json", import.meta.url), "utf8")
 );
-const APP_ID = results.appId;
+const APP_ID = "0x" + BigInt(results.appId).toString(16).padStart(64, "0");
 
 const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({

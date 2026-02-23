@@ -15,12 +15,18 @@ const results = JSON.parse(
 const APP_ID = results.appId;
 const SCORER_ADDRESS = results.scorerAddress;
 
+// Convert decimal app ID to 0x-prefixed hex for URLs
+const APP_ID_HEX = "0x" + BigInt(APP_ID).toString(16).padStart(64, "0");
+
 // Read E2E private key from .env.local for demo page wallet
 const E2E_KEY = readFileSync(".env.local", "utf8")
   .match(/E2E_PRIVATE_KEY=(.*)/)?.[1]
   ?.trim();
 
-console.log(`App ID: ${APP_ID}, Scorer: ${SCORER_ADDRESS}\n`);
+// Chain ID for on-chain pages (Base Sepolia for e2e)
+const CHAIN_ID = results.chainId || "84532";
+
+console.log(`App ID: ${APP_ID_HEX}, Scorer: ${SCORER_ADDRESS}, Chain: ${CHAIN_ID}\n`);
 
 const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({
@@ -72,33 +78,33 @@ await shot(
   "Register App with 1 day timelock selected"
 );
 
-// ── 4. App Settings page (App #1 — default scorer, shows "Set Custom Scores") ──
-await page.goto(`${BASE_URL}/apps/1`);
+// ── 4. App Settings page ──
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}?chainId=${CHAIN_ID}`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=/Active|Suspended/").first());
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/deploy`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/deploy?chainId=${CHAIN_ID}`);
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(2000);
 await shot("05-deploy-scorer", "Deploy Custom Scorer - 3-step wizard");
 
 // ── 6. Manage Scores page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/manage`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/manage?chainId=${CHAIN_ID}`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("06-manage-scores", "Manage Custom Scores page with score table");
 
 // ── 7. Score Explorer page ──
-await page.goto(`${BASE_URL}/scores`);
+await page.goto(`${BASE_URL}/scores?chainId=${CHAIN_ID}`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("07-score-explorer", "Score Explorer - all credential groups");
 
 // ── 8. Demo page (with wallet via ethers) ──
 await page.goto(
-  `${BASE_URL}/demo/e2e?appId=${APP_ID}&key=${E2E_KEY}`
+  `${BASE_URL}/demo/e2e?appId=${APP_ID_HEX}&key=${E2E_KEY}`
 );
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(5000);
