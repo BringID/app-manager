@@ -32,13 +32,27 @@ export const credentialRegistryAbi = [
   },
   {
     type: "function",
-    name: "setAppAdmin",
+    name: "transferAppAdmin",
     inputs: [
       { name: "appId_", type: "uint256" },
       { name: "newAdmin_", type: "address" },
     ],
     outputs: [],
     stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "acceptAppAdmin",
+    inputs: [{ name: "appId_", type: "uint256" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "pendingAppAdmin",
+    inputs: [{ name: "appId", type: "uint256" }],
+    outputs: [{ name: "", type: "address" }],
+    stateMutability: "view",
   },
   {
     type: "function",
@@ -78,9 +92,33 @@ export const credentialRegistryAbi = [
   },
   {
     type: "function",
-    name: "nextAppId",
+    name: "appMerkleTreeDuration",
+    inputs: [{ name: "appId", type: "uint256" }],
+    outputs: [{ name: "", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "defaultMerkleTreeDuration",
     inputs: [],
     outputs: [{ name: "", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "setAppMerkleTreeDuration",
+    inputs: [
+      { name: "appId_", type: "uint256" },
+      { name: "merkleTreeDuration_", type: "uint256" },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "getAppSemaphoreGroupIds",
+    inputs: [{ name: "appId_", type: "uint256" }],
+    outputs: [{ name: "", type: "uint256[]" }],
     stateMutability: "view",
   },
   {
@@ -121,13 +159,28 @@ export const credentialRegistryAbi = [
   },
   {
     type: "event",
-    name: "AppSuspended",
-    inputs: [{ name: "appId", type: "uint256", indexed: true }],
+    name: "AppAdminTransferInitiated",
+    inputs: [
+      { name: "appId", type: "uint256", indexed: true },
+      { name: "currentAdmin", type: "address", indexed: true },
+      { name: "newAdmin", type: "address", indexed: true },
+    ],
   },
   {
     type: "event",
-    name: "AppActivated",
-    inputs: [{ name: "appId", type: "uint256", indexed: true }],
+    name: "AppStatusChanged",
+    inputs: [
+      { name: "appId", type: "uint256", indexed: true },
+      { name: "status", type: "uint8", indexed: false },
+    ],
+  },
+  {
+    type: "event",
+    name: "AppMerkleTreeDurationSet",
+    inputs: [
+      { name: "appId", type: "uint256", indexed: true },
+      { name: "merkleTreeDuration", type: "uint256", indexed: false },
+    ],
   },
   {
     type: "event",
@@ -144,5 +197,40 @@ export const credentialRegistryAbi = [
       { name: "appId", type: "uint256", indexed: true },
       { name: "timelock", type: "uint256", indexed: false },
     ],
+  },
+  {
+    type: "error",
+    name: "NotAppAdmin",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "AppNotActive",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "AppNotSuspended",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "InvalidAdminAddress",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "NotPendingAdmin",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "InvalidScorerContract",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "InvalidScorerAddress",
+    inputs: [],
   },
 ] as const;

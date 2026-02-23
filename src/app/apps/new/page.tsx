@@ -6,6 +6,7 @@ import { decodeEventLog } from "viem";
 import Link from "next/link";
 import { credentialRegistryAbi } from "@/lib/abi/CredentialRegistry";
 import { CREDENTIAL_REGISTRY_ADDRESS } from "@/lib/contracts";
+import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { TimelockInput } from "@/components/TimelockInput";
 import { TxButton } from "@/components/TxButton";
 
@@ -54,18 +55,29 @@ export default function RegisterAppPage() {
           <h2 className="mb-2 text-lg font-semibold text-green-400">
             App Registered!
           </h2>
-          <p className="mb-4 text-zinc-300">
+          <p className="mb-2 text-zinc-300">
             Your App ID is{" "}
             <span className="font-mono text-lg font-bold text-white">
-              {registeredAppId.toString()}
+              {formatAppId(registeredAppId)}
             </span>
           </p>
+          <div className="mb-4 flex items-center gap-2">
+            <code className="rounded bg-zinc-800 px-2 py-1 font-mono text-xs text-zinc-400 break-all">
+              {fullHexId(registeredAppId)}
+            </code>
+            <button
+              onClick={() => navigator.clipboard.writeText(fullHexId(registeredAppId))}
+              className="shrink-0 rounded bg-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:bg-zinc-600"
+            >
+              Copy
+            </button>
+          </div>
           <p className="mb-4 text-sm text-zinc-400">
             Save this ID — you&apos;ll need it to manage your app.
           </p>
           <div className="flex gap-3">
             <Link
-              href={`/apps/${registeredAppId.toString()}`}
+              href={`/apps/${fullHexId(registeredAppId)}`}
               className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Go to App Settings

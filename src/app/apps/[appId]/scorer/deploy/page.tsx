@@ -16,6 +16,7 @@ import {
   SCORER_FACTORY_ADDRESS,
   CREDENTIAL_REGISTRY_ADDRESS,
 } from "@/lib/contracts";
+import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { TxButton } from "@/components/TxButton";
 
 export default function DeployScorerPage() {
@@ -125,10 +126,10 @@ export default function DeployScorerPage() {
     <div className="mx-auto max-w-lg">
       <div className="mb-6">
         <Link
-          href={`/apps/${appId.toString()}`}
+          href={`/apps/${fullHexId(appId)}`}
           className="text-sm text-zinc-400 hover:text-white"
         >
-          ← Back to App #{appId.toString()}
+          ← Back to App {formatAppId(appId)}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">Deploy Custom Scorer</h1>
         <p className="mt-1 text-sm text-zinc-400">
@@ -253,7 +254,7 @@ export default function DeployScorerPage() {
             </p>
             <button
               onClick={() =>
-                router.push(`/apps/${appId.toString()}/scorer/manage`)
+                router.push(`/apps/${fullHexId(appId)}/scorer/manage`)
               }
               className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
