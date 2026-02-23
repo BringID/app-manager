@@ -15,7 +15,7 @@ import {
   AppStatus,
 } from "@/lib/contracts";
 import { formatTimelock } from "@/lib/utils/formatTimelock";
-import { formatAppId } from "@/lib/utils/formatAppId";
+import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { StatusBadge } from "@/components/StatusBadge";
 import { TxButton } from "@/components/TxButton";
 import { TimelockInput } from "@/components/TimelockInput";
@@ -212,7 +212,7 @@ export default function AppDetailPage() {
     return (
       <div className="py-20 text-center">
         <p className="text-zinc-400">App {formatAppId(appId)} not found.</p>
-        <p className="mt-1 font-mono text-xs text-zinc-600">{appId.toString()}</p>
+        <p className="mt-1 font-mono text-xs text-zinc-600">{fullHexId(appId)}</p>
       </div>
     );
   }
@@ -230,7 +230,7 @@ export default function AppDetailPage() {
             <h1 className="text-2xl font-bold">App {formatAppId(appId)}</h1>
             <StatusBadge status={status as AppStatus} />
           </div>
-          <p className="mt-1 font-mono text-xs text-zinc-500">{appId.toString()}</p>
+          <p className="mt-1 font-mono text-xs text-zinc-500">{fullHexId(appId)}</p>
         </div>
         <Link
           href="/apps"
@@ -305,7 +305,7 @@ export default function AppDetailPage() {
           <div className="space-y-4">
             {isDefaultScorer ? (
               <Link
-                href={`/apps/${appId.toString()}/scorer/deploy`}
+                href={`/apps/${fullHexId(appId)}/scorer/deploy`}
                 className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
                 Set Custom Scores →
@@ -313,7 +313,7 @@ export default function AppDetailPage() {
             ) : (
               <div className="flex items-center gap-3">
                 <Link
-                  href={`/apps/${appId.toString()}/scorer/manage`}
+                  href={`/apps/${fullHexId(appId)}/scorer/manage`}
                   className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                 >
                   Manage Scores →

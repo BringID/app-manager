@@ -7,7 +7,7 @@ import { usePendingTransfers } from "@/lib/hooks/usePendingTransfers";
 import { AppCard } from "@/components/AppCard";
 import { credentialRegistryAbi } from "@/lib/abi/CredentialRegistry";
 import { CREDENTIAL_REGISTRY_ADDRESS } from "@/lib/contracts";
-import { formatAppId } from "@/lib/utils/formatAppId";
+import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { TxButton } from "@/components/TxButton";
 
 function PendingTransferCard({
@@ -33,7 +33,7 @@ function PendingTransferCard({
   return (
     <div className="rounded-lg border border-blue-800 bg-blue-950/30 p-4">
       <div className="mb-2 flex items-center justify-between">
-        <span className="font-mono font-bold text-white" title={appId.toString()}>
+        <span className="font-mono font-bold text-white" title={fullHexId(appId)}>
           App {formatAppId(appId)}
         </span>
       </div>

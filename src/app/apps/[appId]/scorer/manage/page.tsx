@@ -15,7 +15,7 @@ import {
   CREDENTIAL_REGISTRY_ADDRESS,
   DEFAULT_SCORER_ADDRESS,
 } from "@/lib/contracts";
-import { formatAppId } from "@/lib/utils/formatAppId";
+import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { ScoreTable } from "@/components/ScoreTable";
 import { TxButton } from "@/components/TxButton";
 
@@ -128,7 +128,7 @@ export default function ManageScorerPage() {
           to edit scores.
         </p>
         <Link
-          href={`/apps/${appId.toString()}/scorer/deploy`}
+          href={`/apps/${fullHexId(appId)}/scorer/deploy`}
           className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
         >
           Deploy Custom Scorer
@@ -141,7 +141,7 @@ export default function ManageScorerPage() {
     <div className="mx-auto max-w-4xl">
       <div className="mb-6">
         <Link
-          href={`/apps/${appId.toString()}`}
+          href={`/apps/${fullHexId(appId)}`}
           className="text-sm text-zinc-400 hover:text-white"
         >
           ← Back to App {formatAppId(appId)}
@@ -189,7 +189,7 @@ export default function ManageScorerPage() {
           </button>
         )}
         <Link
-          href={`/demo?appId=${appId.toString()}`}
+          href={`/demo?appId=${fullHexId(appId)}`}
           className="rounded-lg bg-zinc-700 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-600"
         >
           Check Integration
