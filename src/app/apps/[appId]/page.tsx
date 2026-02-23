@@ -21,6 +21,7 @@ import { TxButton } from "@/components/TxButton";
 import { TimelockInput } from "@/components/TimelockInput";
 import { AddressInput } from "@/components/AddressInput";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { CopyButton } from "@/components/CopyButton";
 
 export default function AppDetailPage() {
   const params = useParams();
@@ -263,25 +264,14 @@ export default function AppDetailPage() {
       )}
 
       <div className="space-y-6">
-        {/* Status Section */}
+        {/* App ID Section */}
         <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Status</h2>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-zinc-400">
-                Current status: <StatusBadge status={status as AppStatus} />
-              </p>
-            </div>
-            <TxButton
-              label={status === AppStatus.ACTIVE ? "Suspend App" : "Activate App"}
-              variant={status === AppStatus.ACTIVE ? "danger" : "primary"}
-              onClick={handleToggleStatus}
-              txHash={statusWrite.data}
-              isPending={statusWrite.isPending}
-              error={statusWrite.error}
-              disabled={!isAdmin}
-              onSuccess={handleRefetch}
-            />
+          <h2 className="mb-4 text-lg font-semibold">App ID</h2>
+          <div className="flex items-center gap-2">
+            <code className="rounded bg-zinc-800 px-2 py-1 font-mono text-xs text-zinc-400 break-all">
+              {fullHexId(appId)}
+            </code>
+            <CopyButton value={fullHexId(appId)} />
           </div>
         </section>
 
@@ -472,6 +462,28 @@ export default function AppDetailPage() {
               isPending={adminWrite.isPending}
               error={adminWrite.error}
               disabled={!isAdmin || !isAddress(newAdmin)}
+              onSuccess={handleRefetch}
+            />
+          </div>
+        </section>
+
+        {/* Status Section */}
+        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
+          <h2 className="mb-4 text-lg font-semibold">Status</h2>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-zinc-400">
+                Current status: <StatusBadge status={status as AppStatus} />
+              </p>
+            </div>
+            <TxButton
+              label={status === AppStatus.ACTIVE ? "Suspend App" : "Activate App"}
+              variant={status === AppStatus.ACTIVE ? "danger" : "primary"}
+              onClick={handleToggleStatus}
+              txHash={statusWrite.data}
+              isPending={statusWrite.isPending}
+              error={statusWrite.error}
+              disabled={!isAdmin}
               onSuccess={handleRefetch}
             />
           </div>
