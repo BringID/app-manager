@@ -81,13 +81,14 @@ The App Settings page (`/apps/{appId}`) shows your app's full configuration. The
 
 ![App Settings](../e2e/screenshots/annotated/04-app-settings.png)
 
-- **Status** — Active or Suspended, with a toggle button
+- **App ID** — your hex app ID with a **Copy** button
 - **Scoring** — which scorer your app uses, with options to manage or change it
 - **Recovery Timelock** — current value with an option to update
 - **Merkle Tree Duration** — how long Merkle trees remain valid (defaults to registry setting)
 - **Admin Transfer** — transfer admin rights to another address (two-step: initiate + accept)
+- **Status** — Active or Suspended, with a toggle button
 
-By default, new apps use the **BringID Default Scorer**. To customize scoring, click **"Set Custom Scores"** in the Scoring section. If a custom scorer is already set, click **"Manage Scores"** instead.
+By default, new apps use the **BringID Default Scorer**. To customize scoring, click **"Set Custom Scores"** in the Scoring section. If a custom scorer is already set, click **"Manage Scores →"** instead.
 
 ---
 

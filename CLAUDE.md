@@ -18,6 +18,7 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 - `node e2e/onchain-flow.mjs` — Run on-chain setup (register app, deploy scorer, set scores)
 - `node e2e/take-screenshots.mjs` — Take all e2e screenshots (requires dev server + flow-results.json)
 - `bash e2e/annotate-screenshots.sh` — Add red highlight annotations to screenshots (requires ImageMagick)
+- `node e2e/annotate-sharp.mjs` — Add red highlight annotations using sharp (no ImageMagick needed)
 - `node e2e/record-video.mjs` — Record walkthrough video with step labels and click indicators
 
 ## Project Structure
@@ -42,6 +43,13 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 - CredentialRegistry: `0xbF9b2556e6Dd64D60E08E3669CeF2a4293e006db`
 - DefaultScorer: `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8C`
 - ScorerFactory: `0xAa03996D720C162Fdff246E1D3CEecc792986750`
+
+## BringID App IDs
+
+BringID's own app IDs (v3, hash-based), used in `src/app/demo/page.tsx`:
+
+- Base mainnet (8453): `0xa2b51c47cc3c2b494334575f9689699111f2695672aadefb534f19d7dcc704a9`
+- Base Sepolia (84532): `0xf6c4a620b2b5f7a536c3c93d62371321bc4206a545f6ecc62fe6d53a0c6cdd3b`
 
 ## Environment Variables
 
