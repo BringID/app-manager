@@ -61,7 +61,7 @@ export default function ScoreExplorerPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold">Score Explorer</h1>
+      <h1 className="mb-6 text-2xl font-bold">Default Scores</h1>
       <p className="mb-6 text-sm text-zinc-400">
         Read-only view of all credential groups and their default scores from the
         BringID DefaultScorer.

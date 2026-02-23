@@ -103,7 +103,7 @@ export default function RegisterAppPage() {
           <TimelockInput value={timelock} onChange={setTimelock} />
 
           <TxButton
-            label="Register App"
+            label="Create App"
             onClick={handleRegister}
             txHash={txHash}
             isPending={isPending}
