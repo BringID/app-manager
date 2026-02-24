@@ -17,7 +17,7 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 - `npm run lint` — ESLint
 - `node e2e/onchain-flow.mjs` — Run on-chain setup (register app, deploy scorer, set scores)
 - `node e2e/take-screenshots.mjs` — Take all e2e screenshots (requires dev server + flow-results.json)
-- `bash e2e/annotate-screenshots.sh` — Add red highlight annotations to screenshots (requires ImageMagick)
+- `node e2e/annotate-screenshots.mjs` — Add red highlight annotations to screenshots (uses sharp)
 - `node e2e/record-video.mjs` — Record walkthrough video with step labels and click indicators
 
 ## Project Structure
