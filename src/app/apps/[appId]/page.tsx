@@ -55,20 +55,6 @@ export default function AppDetailPage() {
     args: [appId],
   });
 
-  // Read Merkle Tree Duration
-  const { data: appMerkleDuration, refetch: refetchMerkleDuration } =
-    useReadContract({
-      address: CREDENTIAL_REGISTRY_ADDRESS,
-      abi: credentialRegistryAbi,
-      functionName: "appMerkleTreeDuration",
-      args: [appId],
-    });
-
-  const { data: defaultMerkleDuration } = useReadContract({
-    address: CREDENTIAL_REGISTRY_ADDRESS,
-    abi: credentialRegistryAbi,
-    functionName: "defaultMerkleTreeDuration",
-  });
 
   const [status, recoveryTimelock, admin, scorer] = appData ?? [
     0, 0n, "0x0" as Address, "0x0" as Address,
@@ -147,18 +133,6 @@ export default function AppDetailPage() {
     });
   }
 
-  // --- Merkle Tree Duration Section ---
-  const [newMerkleDuration, setNewMerkleDuration] = useState("");
-  const merkleDurationWrite = useWriteContract();
-
-  function handleSetMerkleDuration() {
-    merkleDurationWrite.writeContract({
-      address: CREDENTIAL_REGISTRY_ADDRESS,
-      abi: credentialRegistryAbi,
-      functionName: "setAppMerkleTreeDuration",
-      args: [appId, BigInt(newMerkleDuration || "0")],
-    });
-  }
 
   // --- Scorer Section ---
   const [customScorer, setCustomScorer] = useState("");
@@ -199,11 +173,6 @@ export default function AppDetailPage() {
     refetchPending();
   }, [refetch, refetchPending]);
 
-  const handleRefetchAll = useCallback(() => {
-    refetch();
-    refetchPending();
-    refetchMerkleDuration();
-  }, [refetch, refetchPending, refetchMerkleDuration]);
 
   if (isLoading) {
     return <div className="py-20 text-center text-zinc-400">Loading app...</div>;
@@ -218,10 +187,6 @@ export default function AppDetailPage() {
     );
   }
 
-  const effectiveMerkleDuration =
-    appMerkleDuration && appMerkleDuration > 0n
-      ? appMerkleDuration
-      : defaultMerkleDuration ?? 0n;
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -254,6 +219,7 @@ export default function AppDetailPage() {
           </p>
           <TxButton
             label="Accept Admin Transfer"
+            variant="secondary"
             onClick={handleAcceptAdmin}
             txHash={acceptWrite.data}
             isPending={acceptWrite.isPending}
@@ -296,9 +262,9 @@ export default function AppDetailPage() {
             {isDefaultScorer ? (
               <Link
                 href={`/apps/${fullHexId(appId)}/scorer/deploy`}
-                className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="inline-block rounded-lg bg-zinc-700 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-600"
               >
-                Set Custom Scores →
+                Set Custom Scores
               </Link>
             ) : (
               <div className="flex items-center gap-3">
@@ -306,7 +272,7 @@ export default function AppDetailPage() {
                   href={`/apps/${fullHexId(appId)}/scorer/manage`}
                   className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                 >
-                  Manage Scores →
+                  Manage Scores
                 </Link>
                 <TxButton
                   label="Use Default Scorer"
@@ -343,6 +309,7 @@ export default function AppDetailPage() {
                   )}
                   <TxButton
                     label="Set Custom Scorer"
+                    variant="secondary"
                     onClick={handleUseCustomScorer}
                     txHash={isDefaultScorer ? scorerWrite.data : undefined}
                     isPending={scorerWrite.isPending}
@@ -377,6 +344,7 @@ export default function AppDetailPage() {
             />
             <TxButton
               label="Update Timelock"
+              variant="secondary"
               onClick={handleSetTimelock}
               txHash={timelockWrite.data}
               isPending={timelockWrite.isPending}
@@ -387,98 +355,20 @@ export default function AppDetailPage() {
           </div>
         </section>
 
-        {/* Merkle Tree Duration Section */}
-        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Merkle Tree Duration</h2>
-          <p className="mb-4 text-sm text-zinc-400">
-            Controls how long a Merkle tree remains valid for your app.
-            Setting to 0 reverts to the registry default.
-          </p>
-          <p className="mb-4 text-sm text-zinc-400">
-            Effective duration:{" "}
-            <span className="text-white">
-              {formatTimelock(Number(effectiveMerkleDuration))}
-            </span>
-            {effectiveMerkleDuration > 0n && (
-              <span className="text-zinc-500">
-                {" "}
-                ({effectiveMerkleDuration.toString()}s)
-              </span>
-            )}
-            {appMerkleDuration !== undefined && appMerkleDuration === 0n && defaultMerkleDuration !== undefined && (
-              <span className="text-zinc-500"> (registry default)</span>
-            )}
-          </p>
-          <div className="space-y-3">
-            <TimelockInput
-              value={newMerkleDuration}
-              onChange={setNewMerkleDuration}
-              label="Duration (seconds)"
-            />
-            <TxButton
-              label="Update Duration"
-              onClick={handleSetMerkleDuration}
-              txHash={merkleDurationWrite.data}
-              isPending={merkleDurationWrite.isPending}
-              error={merkleDurationWrite.error}
-              disabled={!isAdmin || newMerkleDuration === ""}
-              onSuccess={handleRefetchAll}
-            />
-          </div>
-        </section>
+        {/* Danger Zone */}
+        <section className="rounded-lg border border-red-900/50 bg-zinc-900/50">
+          <h2 className="border-b border-red-900/50 px-6 py-4 text-lg font-semibold text-red-400">Danger Zone</h2>
 
-        {/* Admin Transfer Section */}
-        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Admin Transfer</h2>
-          <p className="mb-2 text-sm text-zinc-400">
-            Current admin:{" "}
-            <span className="font-mono text-zinc-300">
-              {admin as string}
-            </span>
-          </p>
-
-          {hasPendingAdmin && (
-            <div className="mb-4 rounded-md border border-blue-800 bg-blue-950/30 p-3 text-xs text-blue-400">
-              Pending transfer to:{" "}
-              <span className="font-mono">{pendingAdmin as string}</span>{" "}
-              (awaiting acceptance)
-            </div>
-          )}
-
-          <div className="mb-4 rounded-md border border-yellow-800 bg-yellow-950/30 p-3 text-xs text-yellow-400">
-            This initiates a transfer. The new admin must accept before it takes effect.
-          </div>
-          <div className="space-y-3">
-            <AddressInput
-              value={newAdmin}
-              onChange={setNewAdmin}
-              label="New Admin Address"
-            />
-            <TxButton
-              label="Transfer Admin"
-              variant="danger"
-              onClick={() => setShowAdminConfirm(true)}
-              txHash={adminWrite.data}
-              isPending={adminWrite.isPending}
-              error={adminWrite.error}
-              disabled={!isAdmin || !isAddress(newAdmin)}
-              onSuccess={handleRefetch}
-            />
-          </div>
-        </section>
-
-        {/* Status Section */}
-        <section className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="mb-4 text-lg font-semibold">Status</h2>
-          <div className="flex items-center justify-between">
+          <div className="border-b border-red-900/30 px-6 py-4">
             <div>
-              <p className="text-sm text-zinc-400">
-                Current status: <StatusBadge status={status as AppStatus} />
+              <h3 className="text-base font-semibold">Suspend this app</h3>
+              <p className="mb-3 text-sm text-zinc-400">
+                Blocks all new registrations and proof generation. You can re-activate at any time.
               </p>
             </div>
             <TxButton
               label={status === AppStatus.ACTIVE ? "Suspend App" : "Activate App"}
-              variant={status === AppStatus.ACTIVE ? "danger" : "primary"}
+              variant="secondary"
               onClick={handleToggleStatus}
               txHash={statusWrite.data}
               isPending={statusWrite.isPending}
@@ -486,6 +376,44 @@ export default function AppDetailPage() {
               disabled={!isAdmin}
               onSuccess={handleRefetch}
             />
+          </div>
+
+          <div className="px-6 py-4">
+            <div>
+              <h3 className="text-base font-semibold">Transfer admin</h3>
+              <p className="mb-1 text-sm text-zinc-400">
+                The new admin must accept before it takes effect.
+              </p>
+              <p className="mb-3 text-xs text-zinc-500">
+                Current admin: <span className="font-mono text-zinc-400">{admin as string}</span>
+              </p>
+            </div>
+
+            {hasPendingAdmin && (
+              <div className="mb-3 rounded-md border border-blue-800 bg-blue-950/30 p-3 text-xs text-blue-400">
+                Pending transfer to:{" "}
+                <span className="font-mono">{pendingAdmin as string}</span>{" "}
+                (awaiting acceptance)
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <AddressInput
+                value={newAdmin}
+                onChange={setNewAdmin}
+                label="New Admin Address"
+              />
+              <TxButton
+                label="Transfer Admin"
+                variant="danger"
+                onClick={() => setShowAdminConfirm(true)}
+                txHash={adminWrite.data}
+                isPending={adminWrite.isPending}
+                error={adminWrite.error}
+                disabled={!isAdmin || !isAddress(newAdmin)}
+                onSuccess={handleRefetch}
+              />
+            </div>
           </div>
         </section>
       </div>

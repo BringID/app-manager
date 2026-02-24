@@ -43,6 +43,24 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 - DefaultScorer: `0x315044578dd9480Dd25427E4a4d94b0fc2Fa4f8C`
 - ScorerFactory: `0xAa03996D720C162Fdff246E1D3CEecc792986750`
 
+## MCP Server (Semaphore)
+
+Use the **Context7 MCP server** to get up-to-date Semaphore documentation in AI prompts.
+
+```json
+{
+  "mcpServers": {
+    "Context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
+}
+```
+
+Append `use context7` to your prompt when asking about Semaphore (e.g., "create a new Semaphore identity in TypeScript. use context7").
+
 ## Environment Variables
 
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — WalletConnect project ID
