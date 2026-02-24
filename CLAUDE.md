@@ -29,6 +29,10 @@ Next.js 15 app for managing BringID apps on Base (mainnet) and Base Sepolia (tes
 - `docs/` — User-facing guides
 - `e2e/` — Playwright scripts, screenshots, videos
 
+## App IDs
+
+App IDs are large uint256 values. In URLs and display, they use **0x-prefixed, zero-padded 64-char hex format** (e.g. `/apps/0x945e...3a2f`). The conversion logic is in `src/lib/utils/formatAppId.ts`. E2E scripts must also use hex-formatted app IDs in URLs.
+
 ## URL Parameters
 
 - `?chainId=<id>` — Set the active network on page load. Supported values:

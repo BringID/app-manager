@@ -13,6 +13,7 @@ const results = JSON.parse(
   readFileSync(new URL("./flow-results.json", import.meta.url), "utf8")
 );
 const APP_ID = results.appId;
+const APP_ID_HEX = "0x" + BigInt(APP_ID).toString(16).padStart(64, "0");
 
 // Read E2E private key from .env.local for demo page wallet
 const E2E_KEY = readFileSync(".env.local", "utf8")
@@ -145,7 +146,7 @@ await pause(1500);
 // ── Scene 3: App Settings ──
 console.log("Step 3: App Settings");
 await showStep(3, "App Settings");
-await page.goto(`${BASE_URL}/apps/${APP_ID}`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}`);
 await page.waitForLoadState("networkidle");
 await pause(3000);
 
@@ -197,7 +198,7 @@ await pause(1500);
 console.log("Step 6: SDK Demo");
 await showStep(6, "SDK Demo");
 await page.goto(
-  `${BASE_URL}/demo/e2e?appId=${APP_ID}&key=${E2E_KEY}`
+  `${BASE_URL}/demo/e2e?appId=${APP_ID_HEX}&key=${E2E_KEY}`
 );
 await page.waitForLoadState("networkidle");
 await pause(3000);
