@@ -165,6 +165,35 @@ export default function ManageScorerPage() {
         onScoreChange={(gid, val) =>
           setEditedScores((prev) => ({ ...prev, [gid]: val }))
         }
+        headerActions={
+          <>
+            {hasChanges && (
+              <button
+                onClick={() => setEditedScores({})}
+                className="text-xs text-zinc-500 hover:text-white"
+              >
+                Reset
+              </button>
+            )}
+            {!hasChanges && groupIds && defaultScoreMap.size > 0 && (
+              <button
+                onClick={() => {
+                  const defaults: Record<string, string> = {};
+                  for (const id of groupIds) {
+                    const score = defaultScoreMap.get(id.toString());
+                    if (score !== undefined) {
+                      defaults[id.toString()] = score.toString();
+                    }
+                  }
+                  setEditedScores(defaults);
+                }}
+                className="text-xs text-zinc-500 hover:text-white"
+              >
+                Copy defaults
+              </button>
+            )}
+          </>
+        }
       />
 
       <div className="mt-6 flex items-center gap-4">
@@ -180,14 +209,6 @@ export default function ManageScorerPage() {
             refetchCustom();
           }}
         />
-        {hasChanges && (
-          <button
-            onClick={() => setEditedScores({})}
-            className="text-sm text-zinc-400 hover:text-white"
-          >
-            Reset
-          </button>
-        )}
         <Link
           href={`/demo?appId=${fullHexId(appId)}`}
           className="rounded-lg bg-zinc-700 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-600"
