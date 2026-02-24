@@ -303,6 +303,10 @@ function DemoPageContent() {
           <p className="mt-4 text-sm text-red-400">{proofsError}</p>
         )}
       </div>
+
+      <p className="mt-8 text-center text-xs text-zinc-600">
+        bringid SDK v{process.env.NEXT_PUBLIC_BRINGID_VERSION}
+      </p>
     </div>
   );
 }
