@@ -215,6 +215,7 @@ Use this as a reference when deciding how to set your custom scores.
 
 | Contract | Address |
 |----------|---------|
-| CredentialRegistry | `0xfd600B14Dc5A145ec9293Fd5768ae10Ccc1E91Fe` |
-| Default Scorer | `0x6a0b5ba649C7667A0C4Cd7FE8a83484AEE6C5345` |
-| Scorer Factory | `0x05321FAAD6315a04d5024Ee5b175AB1C62a3fd44` |
+| Semaphore | `0x8A1fd199516489B0Fb7153EB5f075cDAC83c693D` |
+| CredentialRegistry | `0x17a22f130d4e1c4ba5C20a679a5a29F227083A62` |
+| Default Scorer | `0x6791B588dAdeb4323bc1C3d987130bC13cBe3625` |
+| Scorer Factory | `0x016bC46169533a8d3284c5D8DD590C91783C8C06` |
