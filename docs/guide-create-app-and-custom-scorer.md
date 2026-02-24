@@ -162,9 +162,9 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 ### Edit and Save Scores
 
 1. Click **Copy defaults** in the Custom Score column header to pre-fill all fields with BringID's default scores, or enter your desired scores manually. For example:
-   - Farcaster (Low): `100`
-   - Farcaster (Medium): `200`
-   - Farcaster (High): `150`
+   - Farcaster (Low): `5`
+   - Farcaster (Medium): `10`
+   - Farcaster (High): `20`
 
 2. The **Save** button updates to show how many scores you've changed: **"Save 3 Score(s)"**
 
