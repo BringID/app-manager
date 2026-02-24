@@ -30,7 +30,7 @@ export default function DemoPage() {
 }
 
 function DemoPageContent() {
-  const { address } = useAccount();
+  const { address, isReconnecting } = useAccount();
   const chainId = useChainId();
   const { signMessageAsync } = useSignMessage();
   const searchParams = useSearchParams();
@@ -41,9 +41,16 @@ function DemoPageContent() {
   const bringIdAppId = BRINGID_APP_IDS[chainId] ?? BRINGID_APP_IDS[base.id];
 
   // App selection — default to query param or BringID's own app
-  const [appId, setAppId] = useState(
-    searchParams.get("appId") || bringIdAppId.toString(),
-  );
+  const rawAppId = searchParams.get("appId");
+  const normalizedParam = rawAppId
+    ? (() => { try { return BigInt(rawAppId).toString(); } catch { return rawAppId; } })()
+    : null;
+  const [appId, setAppId] = useState(normalizedParam ?? bringIdAppId.toString());
+
+  // Sync state when URL search params change (e.g. client-side navigation)
+  useEffect(() => {
+    if (normalizedParam) setAppId(normalizedParam);
+  }, [normalizedParam]);
 
   // SDK ref
   const sdkRef = useRef<BringID | null>(null);
@@ -95,6 +102,8 @@ function DemoPageContent() {
     setShowProofsJson(false);
   }, [appId]);
 
+  const isSettling = isReconnecting || (normalizedParam !== null && normalizedParam !== appId);
+
   const generateSignature = useCallback(
     async (msg: string) => {
       return signMessageAsync({ message: msg });
@@ -140,6 +149,10 @@ function DemoPageContent() {
     } finally {
       setProofsLoading(false);
     }
+  }
+
+  if (isSettling) {
+    return <div className="py-20 text-center text-zinc-400">Loading...</div>;
   }
 
   return (

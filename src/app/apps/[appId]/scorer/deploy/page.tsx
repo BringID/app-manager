@@ -244,13 +244,14 @@ export default function DeployScorerPage() {
 
         {/* Step 3: Done */}
         {step === 3 && (
-          <section className="rounded-lg border border-green-800 bg-green-950/50 p-6">
-            <h2 className="mb-2 text-lg font-semibold text-green-400">
-              Custom Scorer Set!
+          <section className="rounded-lg border border-yellow-800 bg-yellow-950/30 p-6">
+            <h2 className="mb-2 text-lg font-semibold text-yellow-400">
+              Almost done — set your scores
             </h2>
             <p className="mb-4 text-sm text-zinc-300">
-              Your app is now using a custom scorer. Set initial scores to
-              customize scoring.
+              Your custom scorer is deployed but all scores are currently
+              set to <span className="font-semibold text-white">0</span>.
+              You need to set scores before your app can calculate humanity scores.
             </p>
             <button
               onClick={() =>
@@ -258,7 +259,7 @@ export default function DeployScorerPage() {
               }
               className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
-              Manage Scores →
+              Set Scores
             </button>
           </section>
         )}

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { formatTimelock } from "@/lib/utils/formatTimelock";
 
 type ScoreRow = {
@@ -17,6 +18,7 @@ type ScoreTableProps = {
   editable?: boolean;
   editedScores?: Record<string, string>;
   onScoreChange?: (groupId: string, value: string) => void;
+  headerActions?: ReactNode;
 };
 
 const GROUP_NAMES: Record<string, string> = {
@@ -47,6 +49,7 @@ export function ScoreTable({
   editable = false,
   editedScores,
   onScoreChange,
+  headerActions,
 }: ScoreTableProps) {
   return (
     <div className="overflow-x-auto">
@@ -60,7 +63,10 @@ export function ScoreTable({
             <th className="pb-2 pr-4 font-medium">Default Score</th>
             {showCustom && (
               <th className="pb-2 font-medium">
-                {editable ? "Custom Score (edit)" : "Custom Score"}
+                <div className="flex items-baseline gap-3">
+                  <span>Custom Score</span>
+                  {headerActions}
+                </div>
               </th>
             )}
           </tr>
