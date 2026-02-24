@@ -113,12 +113,12 @@ Confirm the transaction. Once mined, the wizard advances to Step 3.
 
 ### Step 4c: Done
 
-A green success banner confirms:
+A yellow warning banner indicates:
 
-> **Custom Scorer Set!**
-> Your app is now using a custom scorer. Set initial scores to customize scoring.
+> **Almost done — set your scores**
+> Your custom scorer is deployed but all scores are currently set to **0**. You need to set scores before your app can calculate humanity scores.
 
-Click **Manage Scores** to configure your custom scores.
+Click **Set Scores** to configure your custom scores.
 
 ---
 
@@ -137,7 +137,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 | **Status** | Whether the credential group is Active |
 | **Validity** | How long a credential proof remains valid (30d, 60d, 90d, 180d) |
 | **Default Score** | The BringID default score for reference |
-| **Custom Score (edit)** | Your custom score — editable input field |
+| **Custom Score** | Your custom score — editable input field. Header includes **Copy defaults** and **Reset** text links. |
 
 ### Available Credential Groups
 
@@ -161,10 +161,10 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 ### Edit and Save Scores
 
-1. Enter your desired scores in the **Custom Score (edit)** column. For example:
-   - Farcaster (Low): `100`
-   - Farcaster (Medium): `200`
-   - Farcaster (High): `150`
+1. Click **Copy defaults** in the Custom Score column header to pre-fill all fields with BringID's default scores, or enter your desired scores manually. For example:
+   - Farcaster (Low): `5`
+   - Farcaster (Medium): `10`
+   - Farcaster (High): `20`
 
 2. The **Save** button updates to show how many scores you've changed: **"Save 3 Score(s)"**
 
@@ -172,7 +172,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 4. Confirm in your wallet. Once mined, you'll see **"Transaction confirmed."** and the table refreshes with your new scores.
 
-> **Reset** — Click to discard all unsaved changes and revert the inputs.
+> **Reset** — Click the Reset link in the Custom Score column header to discard all unsaved changes.
 
 ---
 

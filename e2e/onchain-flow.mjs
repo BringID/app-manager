@@ -214,7 +214,7 @@ console.log(`Confirmed! Status: ${setScorerReceipt.status}\n`);
 // ── Step 4: Set Custom Scores ──
 console.log("=== Step 4: Set Custom Scores ===");
 const groupIds = [1n, 2n, 3n];
-const scores = [100n, 200n, 150n];
+const scores = [5n, 10n, 20n];
 console.log(
   `Scores: ${groupIds.map((g, i) => `Group ${g} = ${scores[i]}`).join(", ")}`
 );

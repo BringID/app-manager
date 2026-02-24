@@ -13,6 +13,7 @@ const results = JSON.parse(
   readFileSync(new URL("./flow-results.json", import.meta.url), "utf8")
 );
 const APP_ID = results.appId;
+const APP_ID_HEX = "0x" + BigInt(APP_ID).toString(16).padStart(64, "0");
 const SCORER_ADDRESS = results.scorerAddress;
 
 // Read E2E private key from .env.local for demo page wallet
@@ -72,33 +73,33 @@ await shot(
   "Register App with 1 day timelock selected"
 );
 
-// ── 4. App Settings page (App #1 — default scorer, shows "Set Custom Scores") ──
-await page.goto(`${BASE_URL}/apps/1`);
+// ── 4. App Settings page (uses hex app ID in URL, chainId for Base Sepolia) ──
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=/Active|Suspended/").first());
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/deploy`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/deploy?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(2000);
 await shot("05-deploy-scorer", "Deploy Custom Scorer - 3-step wizard");
 
 // ── 6. Manage Scores page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID}/scorer/manage`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/manage?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("06-manage-scores", "Manage Custom Scores page with score table");
 
 // ── 7. Score Explorer page ──
-await page.goto(`${BASE_URL}/scores`);
+await page.goto(`${BASE_URL}/scores?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("07-score-explorer", "Score Explorer - all credential groups");
 
 // ── 8. Demo page (with wallet via ethers) ──
 await page.goto(
-  `${BASE_URL}/demo/e2e?appId=${APP_ID}&key=${E2E_KEY}`
+  `${BASE_URL}/demo/e2e?appId=${APP_ID_HEX}&key=${E2E_KEY}`
 );
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(5000);
