@@ -103,9 +103,9 @@ await annotate("06-manage-scores.png", [
 // 07 - Score Explorer: reference only
 await annotate("07-score-explorer.png", []);
 
-// 08 - Demo page: "Verify Humanity" button (x:185 y:433 w:144 h:36)
+// 08 - Demo page: "Verify Humanity" button (x:185 y:404 w:144 h:36)
 await annotate("08-demo-page.png", [
-  { box: [181, 429, 333, 473], r: 10, thick: true, label: 'Click "Verify Humanity"', lx: 343, ly: 459 },
+  { box: [181, 400, 333, 444], r: 10, thick: true, label: 'Click "Verify Humanity"', lx: 343, ly: 430 },
 ]);
 
 console.log(`\n✓ All annotated screenshots in ${OUT}/`);
