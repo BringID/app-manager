@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Register App | BringID App Manager",
+  title: "Create App | BringID App Manager",
 };
 
 export default function NewAppLayout({

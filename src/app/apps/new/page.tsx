@@ -9,6 +9,7 @@ import { CREDENTIAL_REGISTRY_ADDRESS } from "@/lib/contracts";
 import { formatAppId, fullHexId } from "@/lib/utils/formatAppId";
 import { TimelockInput } from "@/components/TimelockInput";
 import { TxButton } from "@/components/TxButton";
+import { CopyButton } from "@/components/CopyButton";
 
 export default function RegisterAppPage() {
   const [timelock, setTimelock] = useState("0");
@@ -65,12 +66,7 @@ export default function RegisterAppPage() {
             <code className="rounded bg-zinc-800 px-2 py-1 font-mono text-xs text-zinc-400 break-all">
               {fullHexId(registeredAppId)}
             </code>
-            <button
-              onClick={() => navigator.clipboard.writeText(fullHexId(registeredAppId))}
-              className="shrink-0 rounded bg-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:bg-zinc-600"
-            >
-              Copy
-            </button>
+            <CopyButton value={fullHexId(registeredAppId)} />
           </div>
           <p className="mb-4 text-sm text-zinc-400">
             Save this ID — you&apos;ll need it to manage your app.
@@ -103,7 +99,7 @@ export default function RegisterAppPage() {
           <TimelockInput value={timelock} onChange={setTimelock} />
 
           <TxButton
-            label="Register App"
+            label="Create App"
             onClick={handleRegister}
             txHash={txHash}
             isPending={isPending}

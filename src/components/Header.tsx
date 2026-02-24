@@ -118,16 +118,19 @@ function NetworkSwitcher() {
 
 const NAV_ITEMS = [
   { href: "/apps", label: "My Apps" },
-  { href: "/apps/new", label: "Register App" },
-  { href: "/scores", label: "Score Explorer" },
+  { href: "/apps/new", label: "Create App" },
+  { href: "/scores", label: "Default Scores" },
   { href: "/demo", label: "Demo" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const activeChainId = useChainId();
-  const isTestnet = activeChainId === baseSepolia.id;
+  const isTestnet = mounted && activeChainId === baseSepolia.id;
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>

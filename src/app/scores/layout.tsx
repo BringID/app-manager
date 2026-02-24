@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Score Explorer | BringID App Manager",
+  title: "Default Scores | BringID App Manager",
 };
 
 export default function ScoresLayout({

@@ -2,7 +2,9 @@
 
 import { formatTimelock } from "@/lib/utils/formatTimelock";
 
-const PRESETS = [
+export type TimelockPreset = { label: string; seconds: number };
+
+const DEFAULT_PRESETS: TimelockPreset[] = [
   { label: "1 day", seconds: 86400 },
   { label: "1 week", seconds: 604800 },
   { label: "1 month", seconds: 2592000 },
@@ -16,12 +18,14 @@ type TimelockInputProps = {
   value: string;
   onChange: (value: string) => void;
   label?: string;
+  presets?: TimelockPreset[];
 };
 
 export function TimelockInput({
   value,
   onChange,
   label = "Recovery Timelock (seconds)",
+  presets = DEFAULT_PRESETS,
 }: TimelockInputProps) {
   const numValue = Number(value) || 0;
 
@@ -31,7 +35,7 @@ export function TimelockInput({
         {label}
       </label>
       <div className="mb-2 flex flex-wrap gap-2">
-        {PRESETS.map((preset) => (
+        {presets.map((preset) => (
           <button
             key={preset.label}
             type="button"
