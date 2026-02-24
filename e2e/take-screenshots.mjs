@@ -73,26 +73,26 @@ await shot(
   "Register App with 1 day timelock selected"
 );
 
-// ── 4. App Settings page (uses hex app ID in URL) ──
-await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}`);
+// ── 4. App Settings page (uses hex app ID in URL, chainId for Base Sepolia) ──
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=/Active|Suspended/").first());
 await shot("04-app-settings", "App Settings page showing status and scorer");
 
 // ── 5. Deploy Custom Scorer page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/deploy`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/deploy?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(2000);
 await shot("05-deploy-scorer", "Deploy Custom Scorer - 3-step wizard");
 
 // ── 6. Manage Scores page ──
-await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/manage`);
+await page.goto(`${BASE_URL}/apps/${APP_ID_HEX}/scorer/manage?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("06-manage-scores", "Manage Custom Scores page with score table");
 
 // ── 7. Score Explorer page ──
-await page.goto(`${BASE_URL}/scores`);
+await page.goto(`${BASE_URL}/scores?chainId=84532`);
 await page.waitForLoadState("networkidle");
 await waitForContent(page.locator("text=Farcaster").first());
 await shot("07-score-explorer", "Score Explorer - all credential groups");
