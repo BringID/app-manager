@@ -42,7 +42,7 @@ Append `?chainId=` to any page URL to set the active network:
 | `84532` | Base Sepolia     |
 
 Examples:
-- `https://app-manager.bringid.com/apps?chainId=84532` — Open My Apps on Base Sepolia
+- `https://manager.bringid.org/apps?chainId=84532` — Open My Apps on Base Sepolia
 - `http://localhost:3000/apps/new?chainId=8453` — Open Register App on Base mainnet
 
 If a wallet is already connected on a different chain, it will be prompted to switch networks.

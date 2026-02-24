@@ -39,7 +39,7 @@ App IDs are large uint256 values. In URLs and display, they use **0x-prefixed, z
   - `8453` — Base (mainnet)
   - `84532` — Base Sepolia (testnet)
   - If a wallet is connected on a different chain, it will be prompted to switch.
-  - Example: `https://app-manager.bringid.com/apps?chainId=84532`
+  - Example: `https://manager.bringid.org/apps?chainId=84532`
 
 ## Contracts (Base Mainnet & Base Sepolia)
 

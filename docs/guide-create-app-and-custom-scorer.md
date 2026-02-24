@@ -8,7 +8,7 @@ This guide walks through registering a new app on the BringID CredentialRegistry
 
 - A wallet (MetaMask, Coinbase Wallet, etc.) connected to **Base** (mainnet) or **Base Sepolia** (testnet)
 - Some ETH on the target chain for gas fees
-- The App Manager running at [https://app-manager.bringid.com](https://app-manager.bringid.com) (or `http://localhost:3000` for local development)
+- The App Manager running at [https://manager.bringid.org](https://manager.bringid.org) (or `http://localhost:3000` for local development)
 
 ---
 
