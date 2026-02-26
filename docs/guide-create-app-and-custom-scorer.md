@@ -2,29 +2,9 @@
 
 Register a new app on the BringID CredentialRegistry and deploy a custom scorer with personalized credential group scores.
 
-> **Video walkthrough:** See the full UI flow in action — [walkthrough.mp4](../e2e/videos/walkthrough.mp4)
-
-## Prerequisites
-
-- A wallet (MetaMask, Coinbase Wallet, etc.) connected to **Base** (mainnet) or **Base Sepolia** (testnet)
-- Some ETH on the target chain for gas fees
-- The App Manager running at [https://manager.bringid.org](https://manager.bringid.org) (or `http://localhost:3000` for local development)
-
 ---
 
-## Step 1: Connect your wallet
-
-Navigate to the App Manager. You'll land on the **My Apps** page, which prompts you to connect your wallet.
-
-![My Apps - Disconnected](../e2e/screenshots/annotated/01-my-apps-disconnected.png)
-
-Click **Connect Wallet** in the top-right corner. Select your wallet provider from the modal (MetaMask, Coinbase Wallet, WalletConnect, etc.) and approve the connection.
-
-> Make sure your wallet is on the correct network (Base for production, Base Sepolia for testing).
-
----
-
-## Step 2: Register a new app
+## Step 1: Register a new app
 
 Click **Register App** in the navigation bar to open the registration form.
 
@@ -50,11 +30,7 @@ Select a timelock value. For this example, we choose **1 day** (86,400 seconds):
 
 ### Submit the transaction
 
-Click **Register App**. Your wallet will prompt you to confirm the transaction. The button will show:
-
-1. **"Confirm in wallet..."** — waiting for you to approve in your wallet
-2. **"Confirming..."** — transaction submitted, waiting for on-chain confirmation
-3. **"Confirmed!"** — transaction mined successfully
+Click **Register App** and confirm the transaction in your wallet.
 
 ### Success
 
@@ -97,9 +73,7 @@ The Deploy Custom Scorer page (`/apps/{appId}/scorer/deploy`) guides you through
 
 ### Step 4a: Deploy scorer contract
 
-Click **Deploy New Scorer**. This calls the `ScorerFactory.create()` contract, deploying a new `DefaultScorer` instance owned by your wallet.
-
-Confirm the transaction in your wallet. Once mined, the wizard advances to Step 2 and displays your new scorer's contract address.
+Click **Deploy New Scorer**. This deploys a new `DefaultScorer` instance via `ScorerFactory.create()`. Once confirmed, the wizard advances and displays your scorer's contract address.
 
 > **Tip:** If you previously deployed a scorer, it will appear in the "You already have N deployed scorer(s)" section with a **Reuse** button, letting you skip this step.
 
@@ -107,9 +81,7 @@ Confirm the transaction in your wallet. Once mined, the wizard advances to Step 
 
 The wizard shows: *"Scorer deployed at `0x47e5...7bf5`"*
 
-Click **Set App Scorer**. This calls `CredentialRegistry.setAppScorer(appId, scorerAddress)` to wire the new scorer to your app.
-
-Confirm the transaction. Once mined, the wizard advances to Step 3.
+Click **Set App Scorer** to call `CredentialRegistry.setAppScorer(appId, scorerAddress)`. Once confirmed, the wizard advances to Step 3.
 
 ### Step 4c: Done
 
@@ -128,36 +100,6 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 ![Manage Custom Scores](../e2e/screenshots/annotated/06-manage-scores.png)
 
-### Understanding the score table
-
-| Column | Description |
-|--------|-------------|
-| **ID** | Credential group ID (1-15) |
-| **Credential** | Human-readable name (e.g., Farcaster Low, GitHub High, zkPassport) |
-| **Status** | Whether the credential group is Active |
-| **Validity** | How long a credential proof remains valid (30d, 60d, 90d, 180d) |
-| **Default Score** | The BringID default score for reference |
-| **Custom Score** | Your custom score — editable input field. Header includes **Copy defaults** and **Reset** text links. |
-
-### Available credential groups
-
-| ID | Credential | Default Score | Validity |
-|----|-----------|---------------|----------|
-| 1  | Farcaster (Low) | 2 | 30d |
-| 2  | Farcaster (Medium) | 5 | 60d |
-| 3  | Farcaster (High) | 10 | 90d |
-| 4  | GitHub (Low) | 2 | 30d |
-| 5  | GitHub (Medium) | 5 | 60d |
-| 6  | GitHub (High) | 10 | 90d |
-| 7  | X / Twitter (Low) | 2 | 30d |
-| 8  | X / Twitter (Medium) | 5 | 60d |
-| 9  | X / Twitter (High) | 10 | 90d |
-| 10 | zkPassport | 20 | 180d |
-| 11 | Self | 20 | 180d |
-| 12 | Uber Rides | 10 | 180d |
-| 13 | Apple Subs | 10 | 180d |
-| 14 | Binance KYC | 20 | 180d |
-| 15 | OKX KYC | 20 | 180d |
 
 ### Edit and save scores
 
@@ -170,7 +112,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 3. Click the Save button. This calls `DefaultScorer.setScores(ids[], scores[])` in a single batch transaction.
 
-4. Confirm in your wallet. Once mined, you'll see **"Transaction confirmed."** and the table refreshes with your new scores.
+4. Confirm the transaction. The table refreshes with your new scores.
 
 > **Reset** — Click the Reset link in the Custom Score column header to discard all unsaved changes.
 
@@ -186,36 +128,3 @@ The Demo page lets you test:
 
 - **verifyHumanity** — Start the BringID humanity verification flow (opens a modal)
 - **verifyProofs** — Verify on-chain proofs and see the score breakdown by credential group
-
----
-
-## Score explorer (reference)
-
-The **Score Explorer** page (`/scores`) provides a read-only view of all credential groups and their default scores from the BringID DefaultScorer:
-
-![Score Explorer](../e2e/screenshots/annotated/07-score-explorer.png)
-
-Use this as a reference when deciding how to set your custom scores.
-
----
-
-## Summary
-
-| Step | Action | Contract Call |
-|------|--------|---------------|
-| 1 | Connect wallet | — |
-| 2 | Register app with timelock | `CredentialRegistry.registerApp(timelock)` |
-| 3 | View app settings | `CredentialRegistry.apps(appId)` (read) |
-| 4a | Deploy custom scorer | `ScorerFactory.create()` |
-| 4b | Wire scorer to app | `CredentialRegistry.setAppScorer(appId, scorer)` |
-| 5 | Set custom scores | `DefaultScorer.setScores(ids[], scores[])` |
-| 6 | Test integration | BringID SDK |
-
-### Contract addresses (Base & Base Sepolia)
-
-| Contract | Address |
-|----------|---------|
-| Semaphore | `0x8A1fd199516489B0Fb7153EB5f075cDAC83c693D` |
-| CredentialRegistry | `0x17a22f130d4e1c4ba5C20a679a5a29F227083A62` |
-| Default Scorer | `0x6791B588dAdeb4323bc1C3d987130bC13cBe3625` |
-| Scorer Factory | `0x016bC46169533a8d3284c5D8DD590C91783C8C06` |

@@ -79,6 +79,7 @@ These rules apply to all files in the `docs/` folder.
 ### Writing
 
 - Use second-person voice ("you").
+- Assume the reader has a crypto wallet (MetaMask) and understands transactions, gas, and network switching. Don't explain these basics.
 - List prerequisites at the start of procedural content.
 - Add language tags on all fenced code blocks.
 - Add alt text on all images.
