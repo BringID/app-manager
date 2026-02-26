@@ -1,67 +1,39 @@
-# Guide: Register an app
+# Register a new app
 
-Register a new app on the BringID CredentialRegistry.
+Register your app on the BringID CredentialRegistry to get an App ID for SDK integration.
 
----
+## Open the registration form
 
-## Step 1: Register a new app
+Click **Register App** in the navigation bar.
 
-Click **Register App** in the navigation bar to open the registration form.
+![Registration form with app name and recovery timelock fields](../e2e/screenshots/annotated/02-register-app-form.png)
 
-![Register App Form](../e2e/screenshots/annotated/02-register-app-form.png)
+## Configure recovery timelock and submit
 
-### Configure the recovery timelock
+The recovery timelock sets how long admin recovery actions take. Select a preset from the dropdown or enter a custom value in seconds.
 
-The **Recovery Timelock** determines how long admin recovery actions take. Choose a preset or enter a custom value in seconds:
-
-| Preset    | Seconds    |
-|-----------|------------|
-| 1 day     | 86,400     |
-| 1 week    | 604,800    |
-| 1 month   | 2,592,000  |
-| 3 months  | 7,776,000  |
-| 6 months  | 15,552,000 |
-| 1 year    | 31,536,000 |
-| Disabled  | 0          |
-
-Select a timelock value. For this example, we choose **1 day** (86,400 seconds):
-
-![Timelock Selected](../e2e/screenshots/annotated/03-register-app-timelock-selected.png)
-
-### Submit the transaction
+![Registration form with 1 day timelock selected](../e2e/screenshots/annotated/03-register-app-timelock-selected.png)
 
 Click **Register App** and confirm the transaction in your wallet.
 
-### Success
+## Registration success
 
-Once confirmed, a success banner appears showing your new **App ID**:
+<!-- TODO: capture screenshot of "App Registered!" success banner -->
 
-> **App Registered!**
-> Your App ID is **3**
-> Save this ID — you'll need it to manage your app.
+Once confirmed, a success banner shows your new App ID. Click **Go to App Settings** to continue.
 
-You'll see two options:
-- **Go to App Settings** — navigate to your app's management page
-- **Register Another** — register an additional app
+## View app settings
 
-Click **Go to App Settings** to continue.
+<!-- TODO: capture screenshot of app settings page as admin -->
 
----
+The app settings page shows your app's configuration:
 
-## Step 2: View app settings
+- **Status** — active or suspended, with a toggle
+- **Recovery timelock** — current value, with an option to update
+- **Admin transfer** — transfer admin rights to another address
+- **Scorer configuration** — which scorer your app uses
 
-The App Settings page (`/apps/{appId}`) shows your app's full configuration:
-
-![App Settings](../e2e/screenshots/annotated/04-app-settings.png)
-
-- **Status** — Active or Suspended, with a toggle button
-- **Recovery Timelock** — current value with an option to update
-- **Admin Transfer** — transfer admin rights to another address (irreversible)
-- **Scorer Configuration** — which scorer your app uses
-
-By default, new apps use the **BringID Default Scorer**. To customize scoring, you need to deploy and set a custom scorer.
-
-From the Scorer Configuration section, click **"Set Custom Scores"**.
+New apps use the BringID Default Scorer. To customize scoring, click **Set Custom Scores**.
 
 ---
 

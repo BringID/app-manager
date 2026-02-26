@@ -109,3 +109,13 @@ These rules apply to all files in the `docs/` folder.
 - Make content evergreen where possible.
 - Search existing docs before adding new content to avoid duplication.
 - Start with the smallest reasonable change.
+
+## Documentation roadmap
+
+Three integration guides in `docs/`:
+
+1. **Register a new app** (`guide-register-app.md`) — register via App Manager, view app settings
+2. **Integrate BringID SDK** (planned) — add the `bringid` package to a frontend
+3. **Integrate BringID smart contract** (planned) — call CredentialRegistry directly
+
+Registering an app is a prerequisite for SDK usage. The App Manager also handles app management (status, recovery timelock, admin transfer) and custom scorer configuration, covered in the existing `guide-set-custom-scores.md` and `guide-verify-integration.md`.
