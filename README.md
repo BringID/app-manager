@@ -56,5 +56,7 @@ The network switcher in the header allows switching between networks at any time
 
 ## Documentation
 
-- [Guide: Creating an App & Setting a Custom Scorer](docs/guide-create-app-and-custom-scorer.md)
+- [Guide: Register an app](docs/guide-register-app.md)
+- [Guide: Set custom scores](docs/guide-set-custom-scores.md)
+- [Guide: Verify your integration](docs/guide-verify-integration.md)
 - [Video Walkthrough](e2e/videos/walkthrough.mp4)
