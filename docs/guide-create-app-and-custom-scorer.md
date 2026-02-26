@@ -1,6 +1,6 @@
-# Guide: Creating an App & Setting a Custom Scorer
+# Guide: Creating an app and setting a custom scorer
 
-This guide walks through registering a new app on the BringID CredentialRegistry and deploying a custom scorer with personalized credential group scores.
+Register a new app on the BringID CredentialRegistry and deploy a custom scorer with personalized credential group scores.
 
 > **Video walkthrough:** See the full UI flow in action — [walkthrough.mp4](../e2e/videos/walkthrough.mp4)
 
@@ -12,7 +12,7 @@ This guide walks through registering a new app on the BringID CredentialRegistry
 
 ---
 
-## Step 1: Connect Your Wallet
+## Step 1: Connect your wallet
 
 Navigate to the App Manager. You'll land on the **My Apps** page, which prompts you to connect your wallet.
 
@@ -24,13 +24,13 @@ Click **Connect Wallet** in the top-right corner. Select your wallet provider fr
 
 ---
 
-## Step 2: Register a New App
+## Step 2: Register a new app
 
 Click **Register App** in the navigation bar to open the registration form.
 
 ![Register App Form](../e2e/screenshots/annotated/02-register-app-form.png)
 
-### Configure the Recovery Timelock
+### Configure the recovery timelock
 
 The **Recovery Timelock** determines how long admin recovery actions take. Choose a preset or enter a custom value in seconds:
 
@@ -48,7 +48,7 @@ Select a timelock value. For this example, we choose **1 day** (86,400 seconds):
 
 ![Timelock Selected](../e2e/screenshots/annotated/03-register-app-timelock-selected.png)
 
-### Submit the Transaction
+### Submit the transaction
 
 Click **Register App**. Your wallet will prompt you to confirm the transaction. The button will show:
 
@@ -72,7 +72,7 @@ Click **Go to App Settings** to continue.
 
 ---
 
-## Step 3: View App Settings
+## Step 3: View app settings
 
 The App Settings page (`/apps/{appId}`) shows your app's full configuration:
 
@@ -89,13 +89,13 @@ From the Scorer Configuration section, click **"Set Custom Scores"**.
 
 ---
 
-## Step 4: Deploy a Custom Scorer
+## Step 4: Deploy a custom scorer
 
 The Deploy Custom Scorer page (`/apps/{appId}/scorer/deploy`) guides you through a **3-step wizard**:
 
 ![Deploy Scorer Wizard](../e2e/screenshots/annotated/05-deploy-scorer.png)
 
-### Step 4a: Deploy Scorer Contract
+### Step 4a: Deploy scorer contract
 
 Click **Deploy New Scorer**. This calls the `ScorerFactory.create()` contract, deploying a new `DefaultScorer` instance owned by your wallet.
 
@@ -103,7 +103,7 @@ Confirm the transaction in your wallet. Once mined, the wizard advances to Step 
 
 > **Tip:** If you previously deployed a scorer, it will appear in the "You already have N deployed scorer(s)" section with a **Reuse** button, letting you skip this step.
 
-### Step 4b: Set Scorer on App
+### Step 4b: Set scorer on app
 
 The wizard shows: *"Scorer deployed at `0x47e5...7bf5`"*
 
@@ -122,13 +122,13 @@ Click **Set Scores** to configure your custom scores.
 
 ---
 
-## Step 5: Set Custom Scores
+## Step 5: Set custom scores
 
 The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credential groups in an editable table:
 
 ![Manage Custom Scores](../e2e/screenshots/annotated/06-manage-scores.png)
 
-### Understanding the Score Table
+### Understanding the score table
 
 | Column | Description |
 |--------|-------------|
@@ -139,7 +139,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 | **Default Score** | The BringID default score for reference |
 | **Custom Score** | Your custom score — editable input field. Header includes **Copy defaults** and **Reset** text links. |
 
-### Available Credential Groups
+### Available credential groups
 
 | ID | Credential | Default Score | Validity |
 |----|-----------|---------------|----------|
@@ -159,7 +159,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 | 14 | Binance KYC | 20 | 180d |
 | 15 | OKX KYC | 20 | 180d |
 
-### Edit and Save Scores
+### Edit and save scores
 
 1. Click **Copy defaults** in the Custom Score column header to pre-fill all fields with BringID's default scores, or enter your desired scores manually. For example:
    - Farcaster (Low): `5`
@@ -176,7 +176,7 @@ The Manage Scores page (`/apps/{appId}/scorer/manage`) displays all 15 credentia
 
 ---
 
-## Step 6: Verify Your Integration
+## Step 6: Verify your integration
 
 After saving scores, click **Check Integration** at the bottom of the Manage Scores page. This opens the **SDK Demo** page pre-configured with your app.
 
@@ -189,7 +189,7 @@ The Demo page lets you test:
 
 ---
 
-## Score Explorer (Reference)
+## Score explorer (reference)
 
 The **Score Explorer** page (`/scores`) provides a read-only view of all credential groups and their default scores from the BringID DefaultScorer:
 
@@ -211,7 +211,7 @@ Use this as a reference when deciding how to set your custom scores.
 | 5 | Set custom scores | `DefaultScorer.setScores(ids[], scores[])` |
 | 6 | Test integration | BringID SDK |
 
-### Contract Addresses (Base & Base Sepolia)
+### Contract addresses (Base & Base Sepolia)
 
 | Contract | Address |
 |----------|---------|
