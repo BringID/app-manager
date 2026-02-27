@@ -67,10 +67,24 @@ await page.goto(`${BASE_URL}/apps`);
 await page.waitForLoadState("networkidle");
 await shot("01-my-apps-disconnected", "My Apps page before wallet connection");
 
-// ── 2. Register App page (form) ──
+// ── 2. Register App page (form) — cropped to title + form card ──
 await page.goto(`${BASE_URL}/apps/new`);
 await page.waitForLoadState("networkidle");
-await shot("02-register-app-form", "Register App form with timelock options");
+await page.waitForTimeout(1500);
+{
+  const box = await page.locator(".max-w-lg").boundingBox();
+  const pad = 24;
+  await page.screenshot({
+    path: `${SCREENSHOT_DIR}/02-register-app-form.png`,
+    clip: {
+      x: Math.max(0, box.x - pad),
+      y: Math.max(0, box.y - pad),
+      width: box.width + pad * 2,
+      height: box.height + pad * 2,
+    },
+  });
+}
+console.log("📸 02-register-app-form: Register App form with timelock options");
 
 // ── 3. Register App - with 1 day timelock selected ──
 await page.click("text=1 day");
