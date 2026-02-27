@@ -227,12 +227,22 @@ await walletPage.locator('button:has-text("Create App")').click();
 await walletPage.locator("text=App Registered!").waitFor({ timeout: 120000 });
 console.log("App registered!");
 
-// ── 03b: Registration success banner ──
-await shot(
-  "03b-register-app-success",
-  "Registration success banner with new App ID",
-  walletPage
-);
+// ── 03b: Registration success banner — cropped to title + banner ──
+await walletPage.waitForTimeout(1500);
+{
+  const box = await walletPage.locator(".max-w-lg").boundingBox();
+  const pad = 24;
+  await walletPage.screenshot({
+    path: `${SCREENSHOT_DIR}/03b-register-app-success.png`,
+    clip: {
+      x: Math.max(0, box.x - pad),
+      y: Math.max(0, box.y - pad),
+      width: box.width + pad * 2,
+      height: box.height + pad * 2,
+    },
+  });
+}
+console.log("📸 03b-register-app-success: Registration success banner with new App ID");
 
 // Extract new app ID from "Go to App Settings" link
 const settingsLink = walletPage.locator('a:has-text("Go to App Settings")');
