@@ -12,7 +12,7 @@ Go to the [BringID App Manager](https://manager.bringid.org/apps/new) to registe
 
 ### Recovery timelock
 
-Recovery lets users replace the key proving ownership of their credentials. If a user loses access to their wallet, they can re-authenticate through a verification flow to link a new key. The timelock sets a waiting period between initiating and finalizing recovery — during this window the user cannot generate proofs with either the old or new key, which prevents double-spend.
+Recovery lets users replace the key proving ownership of their credentials. If a user loses access to their wallet, they can re-authenticate through a verification flow to link a new key. The timelock sets a waiting period between initiating and finalizing recovery — during this window, the user cannot generate proofs with either key, which prevents double-spend.
 
 Choose a preset (1 day to 1 year) or enter a custom value in seconds. Setting the value to 0 disables key recovery entirely.
 
@@ -32,9 +32,9 @@ After the transaction confirms, a success banner displays your new App ID.
 
 Copy and pass the App ID to the BringID SDK to integrate it with your app.
 
-### What's next
+## What's next
 
-Manage app settings, transfer admin to another wallet or set custom scores on the settings page.
+Manage app settings, transfer admin to another wallet, or set custom scores on the settings page.
 
 ---
 
