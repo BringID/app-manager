@@ -16,21 +16,21 @@ Choose a preset (1 day to 1 year) or enter a custom value in seconds. Setting th
 
 The right value depends on how often users interact with your app:
 
-- **Faucet** dispensing tokens every 24 hours — set to 1 day
-- **Weekly promotion** where unique users register within a week — set to 1 week
-- **One-time airdrop** claimed by unique humans — disable recovery (set to 0)
+- Faucet dispensing tokens every 24 hours — set to 1 day
+- Weekly promotion where unique users register within a week — set to 1 week
+- One-time airdrop claimed by unique humans — disable recovery (set to 0)
 
 This setting can be changed later from the app settings page.
 
-## Copy App ID
+### Copy App ID
 
-After the transaction is confirmed, a success banner displays your new App ID.
+After the transaction confirms, a success banner displays your new App ID.
 
 ![Success banner showing the new App ID](../e2e/screenshots/03b-register-app-success.png)
 
 Copy and pass the App ID to the BringID SDK to integrate it with your app.
 
-## What's next
+### What's next
 
 Manage app settings, transfer admin to another wallet or set custom scores on the settings page.
 
