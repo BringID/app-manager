@@ -67,12 +67,6 @@ await annotate("01-my-apps-disconnected.png", [
   { box: [1133, 8, 1284, 56], r: 14, thick: true, label: 'Click "Connect Wallet"', lx: 1020, ly: 80 },
 ]);
 
-// 02 - Register App form: timelock presets row + (Register App btn not visible without wallet)
-//   1 day btn at (489, 266), Disabled at (489+72, 298+24) → row spans ~489..780, 262..326
-await annotate("02-register-app-form.png", [
-  { box: [485, 260, 780, 328], r: 10, label: "1. Pick a timelock preset", lx: 790, ly: 300, small: true },
-]);
-
 // 03 - Timelock selected: same layout, "1 day" is active
 await annotate("03-register-app-timelock-selected.png", [
   { box: [485, 260, 550, 294], r: 10, thick: true, label: '"1 day" selected — click "Register App"', lx: 560, ly: 284, small: true },
@@ -108,10 +102,5 @@ await annotate("08-demo-page.png", [
   { box: [181, 400, 333, 444], r: 10, thick: true, label: 'Click "Verify Humanity"', lx: 343, ly: 430 },
 ]);
 
-// 03b - Register App success banner (wallet-connected)
-await annotate("03b-register-app-success.png", []);
-
-// 04b - App Settings as admin (wallet-connected)
-await annotate("04b-app-settings-admin.png", []);
 
 console.log(`\n✓ All annotated screenshots in ${OUT}/`);

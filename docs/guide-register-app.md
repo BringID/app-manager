@@ -1,39 +1,30 @@
 # Register a new app
 
-Register your app on the BringID CredentialRegistry to get an App ID for SDK integration.
+Go to [manager.bringid.org/apps/new](https://manager.bringid.org/apps/new) to open the registration form.
 
-## Open the registration form
+![Registration form with app name and recovery timelock fields](../e2e/screenshots/02-register-app-form.png)
 
-Click **Register App** in the navigation bar.
+1. Enter an app name.
+2. Set the recovery timelock (see below).
+3. Click **Register App** and confirm the transaction in your wallet.
 
-![Registration form with app name and recovery timelock fields](../e2e/screenshots/annotated/02-register-app-form.png)
+## Recovery timelock
 
-## Configure recovery timelock and submit
+Recovery is a timelocked key replacement mechanism. If a user loses access to their wallet, they can re-authenticate through a verification flow to replace their Semaphore identity commitment. The timelock sets a waiting period between initiating and finalizing recovery — during this window the user cannot generate proofs with either the old or new key, which prevents double-spend.
 
-The recovery timelock sets how long admin recovery actions take. Select a preset from the dropdown or enter a custom value in seconds.
+Select a preset from the dropdown or enter a custom value in seconds. Set to 0 to disable recovery for your app. You can change this later in app settings.
 
-![Registration form with 1 day timelock selected](../e2e/screenshots/annotated/03-register-app-timelock-selected.png)
+## Get your App ID
 
-Click **Register App** and confirm the transaction in your wallet.
+After the transaction confirms, a success banner displays your new App ID.
 
-## Registration success
+![Success banner showing the new App ID](../e2e/screenshots/03b-register-app-success.png)
 
-![Success banner showing the new App ID](../e2e/screenshots/annotated/03b-register-app-success.png)
+The App ID is a `0x`-prefixed hex value. Copy it — this is the identifier you pass to the BringID SDK when integrating your app.
 
-Once confirmed, a success banner shows your new App ID. Click **Go to App Settings** to continue.
+## What's next
 
-## View app settings
-
-![App settings page with admin controls](../e2e/screenshots/annotated/04b-app-settings-admin.png)
-
-The app settings page shows your app's configuration:
-
-- **Status** — active or suspended, with a toggle
-- **Recovery timelock** — current value, with an option to update
-- **Admin transfer** — transfer admin rights to another address
-- **Scorer configuration** — which scorer your app uses
-
-New apps use the BringID Default Scorer. To customize scoring, click **Set Custom Scores**.
+All app settings — status, recovery timelock, scorer configuration, and admin transfer — can be modified later from the app settings page.
 
 ---
 
