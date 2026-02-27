@@ -12,7 +12,15 @@ Go to [manager.bringid.org/apps/new](https://manager.bringid.org/apps/new) to op
 
 Recovery is a timelocked key replacement mechanism. If a user loses access to their wallet, they can re-authenticate through a verification flow to replace the key associated with their credential. The timelock sets a waiting period between initiating and finalizing recovery — during this window the user cannot generate proofs with either the old or new key, which prevents double-spend.
 
-Choose a preset (1 day to 1 year), enter a custom value in seconds, or select Disabled to set it to 0. This setting can be changed later from the app settings page.
+Choose a preset (1 day to 1 year) or enter a custom value in seconds. Setting the value to 0 disables key recovery entirely.
+
+The right value depends on how often users interact with your app:
+
+- **Faucet** dispensing tokens every 24 hours — set to 1 day
+- **Weekly promotion** where unique users register within a week — set to 1 week
+- **One-time airdrop** claimed by unique humans — disable recovery (set to 0)
+
+This setting can be changed later from the app settings page.
 
 ## Copy App ID
 
