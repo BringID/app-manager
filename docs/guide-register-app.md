@@ -2,6 +2,8 @@
 
 Go to the [BringID App Manager](https://manager.bringid.org/apps/new) to register a new app and get the App ID required for integration.
 
+## Register app onchain
+
 ![Registration form with recovery timelock fields](../e2e/screenshots/02-register-app-form.png)
 
 1. Connect a crypto wallet. Your connected wallet becomes the app admin.
@@ -22,7 +24,7 @@ The right value depends on how often users interact with your app:
 
 This setting can be changed later from the app settings page.
 
-### Copy App ID
+## Get App ID
 
 After the transaction confirms, a success banner displays your new App ID.
 
