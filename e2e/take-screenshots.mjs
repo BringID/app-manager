@@ -67,12 +67,12 @@ await page.goto(`${BASE_URL}/apps`);
 await page.waitForLoadState("networkidle");
 await shot("01-my-apps-disconnected", "My Apps page before wallet connection");
 
-// ── 2. Register App page (form) — cropped to title + form card ──
+// ── 2. Register App page (form) — cropped to form card only ──
 await page.goto(`${BASE_URL}/apps/new`);
 await page.waitForLoadState("networkidle");
 await page.waitForTimeout(1500);
 {
-  const box = await page.locator(".max-w-lg").boundingBox();
+  const box = await page.locator(".max-w-lg > div").boundingBox();
   const pad = 24;
   await page.screenshot({
     path: `${SCREENSHOT_DIR}/02-register-app-form.png`,
@@ -227,10 +227,10 @@ await walletPage.locator('button:has-text("Create App")').click();
 await walletPage.locator("text=App Registered!").waitFor({ timeout: 120000 });
 console.log("App registered!");
 
-// ── 03b: Registration success banner — cropped to title + banner ──
+// ── 03b: Registration success banner — cropped to banner only ──
 await walletPage.waitForTimeout(1500);
 {
-  const box = await walletPage.locator(".max-w-lg").boundingBox();
+  const box = await walletPage.locator(".max-w-lg > div").boundingBox();
   const pad = 24;
   await walletPage.screenshot({
     path: `${SCREENSHOT_DIR}/03b-register-app-success.png`,
