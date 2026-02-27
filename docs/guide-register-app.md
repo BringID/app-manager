@@ -4,10 +4,9 @@ Go to [manager.bringid.org/apps/new](https://manager.bringid.org/apps/new) to op
 
 ![Registration form with recovery timelock fields](../e2e/screenshots/02-register-app-form.png)
 
-Apps are registered onchain in the BringID CredentialRegistry contract. Your connected wallet becomes the app admin.
-
-1. Set the recovery timelock (see below).
-2. Click **Create App** and confirm the transaction in your wallet.
+1. Connect a crypto wallet. Your connected wallet becomes the app admin.
+2. Set the recovery timelock (see below).
+3. Click **Create App** and confirm the transaction in your wallet. Apps are registered onchain in the BringID CredentialRegistry contract.
 
 ## Recovery timelock
 
