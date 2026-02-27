@@ -18,13 +18,13 @@ Click **Register App** and confirm the transaction in your wallet.
 
 ## Registration success
 
-<!-- TODO: capture screenshot of "App Registered!" success banner -->
+![Success banner showing the new App ID](../e2e/screenshots/annotated/03b-register-app-success.png)
 
 Once confirmed, a success banner shows your new App ID. Click **Go to App Settings** to continue.
 
 ## View app settings
 
-<!-- TODO: capture screenshot of app settings page as admin -->
+![App settings page with admin controls](../e2e/screenshots/annotated/04b-app-settings-admin.png)
 
 The app settings page shows your app's configuration:
 

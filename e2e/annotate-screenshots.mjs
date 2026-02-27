@@ -108,4 +108,10 @@ await annotate("08-demo-page.png", [
   { box: [181, 400, 333, 444], r: 10, thick: true, label: 'Click "Verify Humanity"', lx: 343, ly: 430 },
 ]);
 
+// 03b - Register App success banner (wallet-connected)
+await annotate("03b-register-app-success.png", []);
+
+// 04b - App Settings as admin (wallet-connected)
+await annotate("04b-app-settings-admin.png", []);
+
 console.log(`\n✓ All annotated screenshots in ${OUT}/`);
