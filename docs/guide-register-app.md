@@ -1,6 +1,6 @@
 # Register a new app
 
-Go to [manager.bringid.org/apps/new](https://manager.bringid.org/apps/new) to open the registration form.
+Go to the [BringID App Manager](https://manager.bringid.org/apps/new) to register a new app and get the App ID required for integration.
 
 ![Registration form with recovery timelock fields](../e2e/screenshots/02-register-app-form.png)
 
