@@ -71,3 +71,51 @@ Append `use context7` to your prompt when asking about Semaphore (e.g., "create 
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — WalletConnect project ID
 - `NEXT_PUBLIC_ALCHEMY_API_KEY` — Alchemy API key (used for Base and Base Sepolia RPCs)
 - `E2E_PRIVATE_KEY` — Private key for e2e headless wallet (in .env.local, never committed)
+
+## Documentation standards
+
+These rules apply to all files in the `docs/` folder.
+
+### Writing
+
+- Use second-person voice ("you").
+- Assume the reader has a crypto wallet (MetaMask) and understands transactions, gas, and network switching. Don't explain these basics.
+- List prerequisites at the start of procedural content.
+- Add language tags on all fenced code blocks.
+- Add alt text on all images.
+- Use relative paths for internal links.
+- Use sentence case for all headings (capitalize only the first word and proper nouns).
+- Prefer active voice and direct language.
+- Remove unnecessary words while maintaining clarity.
+- Break complex instructions into clear numbered steps.
+- Use broadly applicable examples rather than overly specific business cases.
+
+### Language and tone
+
+- No promotional language.
+- Limit conjunction overuse (moreover, furthermore, additionally).
+- No editorializing ("it's important to note", "in conclusion").
+- No undue emphasis on routine concepts.
+
+### Formatting
+
+- Use bold, italics, and other formatting only when it serves understanding, not visual appeal.
+- Clean structure with no emoji or decorative elements.
+
+### Content strategy
+
+- Document just enough for user success.
+- Prioritize accuracy and usability.
+- Make content evergreen where possible.
+- Search existing docs before adding new content to avoid duplication.
+- Start with the smallest reasonable change.
+
+## Documentation roadmap
+
+Three integration guides in `docs/`:
+
+1. **Register a new app** (`guide-register-app.md`) — register via App Manager, view app settings
+2. **Integrate BringID SDK** (planned) — add the `bringid` package to a frontend
+3. **Integrate BringID smart contract** (planned) — call CredentialRegistry directly
+
+Registering an app is a prerequisite for SDK usage. The App Manager also handles app management (status, recovery timelock, admin transfer) and custom scorer configuration, covered in the existing `guide-set-custom-scores.md` and `guide-verify-integration.md`.
